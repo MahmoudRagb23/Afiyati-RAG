@@ -1,0 +1,13 @@
+.env
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+node_modules/
+dist/
+data/afiyati.db*
+data/qdrant/
+data/index/
+evaluation/reports/*.json
+!evaluation/reports/.gitkeep
+

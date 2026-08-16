@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>عافيتي - تسجيل الدخول / إنشاء حساب</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-secondary-container": "#006f6a",
+                        "on-background": "#181c1d",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#884a1a",
+                        "secondary": "#006a66",
+                        "surface-container-high": "#e5e9e9",
+                        "inverse-primary": "#79d4e2",
+                        "primary-fixed": "#95f1ff",
+                        "primary-fixed-dim": "#79d4e2",
+                        "secondary-fixed-dim": "#69d8d1",
+                        "tertiary-fixed": "#ffdcc7",
+                        "on-surface": "#181c1d",
+                        "inverse-on-surface": "#eef1f2",
+                        "outline": "#6e797b",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed-variant": "#00504d",
+                        "surface-variant": "#dfe3e4",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-container": "#effdff",
+                        "tertiary-fixed-dim": "#ffb786",
+                        "background": "#f6fafb",
+                        "error-container": "#ffdad6",
+                        "primary": "#00646f",
+                        "inverse-surface": "#2d3132",
+                        "surface-container": "#ebeeef",
+                        "on-primary-fixed": "#001f24",
+                        "primary-container": "#087f8c",
+                        "secondary-fixed": "#87f4ee",
+                        "on-tertiary-fixed-variant": "#703706",
+                        "surface": "#f6fafb",
+                        "surface-tint": "#006874",
+                        "on-primary-fixed-variant": "#004f57",
+                        "surface-bright": "#f6fafb",
+                        "surface-container-low": "#f1f4f5",
+                        "on-tertiary-fixed": "#311300",
+                        "on-surface-variant": "#3e494a",
+                        "surface-container-highest": "#dfe3e4",
+                        "outline-variant": "#bdc9ca",
+                        "tertiary-container": "#a66230",
+                        "surface-dim": "#d7dbdb",
+                        "secondary-container": "#84f2eb",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed": "#00201e",
+                        "on-tertiary-container": "#fff8f6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "64px",
+                        "xs": "4px",
+                        "margin-desktop": "80px",
+                        "sm": "12px",
+                        "md": "24px",
+                        "gutter": "20px",
+                        "base": "8px",
+                        "lg": "48px",
+                        "margin-mobile": "20px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Be Vietnam Pro", "sans-serif"],
+                        "headline-xl-mobile": ["Be Vietnam Pro", "sans-serif"],
+                        "headline-md": ["Be Vietnam Pro", "sans-serif"],
+                        "headline-lg": ["Be Vietnam Pro", "sans-serif"],
+                        "caption": ["Be Vietnam Pro", "sans-serif"],
+                        "body-md": ["Be Vietnam Pro", "sans-serif"],
+                        "body-lg": ["Be Vietnam Pro", "sans-serif"],
+                        "headline-xl": ["Be Vietnam Pro", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "headline-xl-mobile": ["30px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "42px", "fontWeight": "600" }],
+                        "caption": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-xl": ["40px", { "lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #f6fafb;
+            color: #181c1d;
+        }
+        
+        /* Soft ambient shadow for level 1 surfaces */
+        .shadow-ambient-l1 {
+            box-shadow: 0px 4px 20px rgba(16, 50, 56, 0.05);
+        }
+        
+        /* Input transition */
+        .form-input-focus {
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        
+        .form-input-focus:focus {
+            border-color: #087f8c;
+            box-shadow: 0 0 0 1px #087f8c;
+        }
+
+        /* Toggle Views */
+        #signup-view { display: none; }
+        .show-signup #login-view { display: none; }
+        .show-signup #signup-view { display: block; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-margin-mobile md:p-margin-desktop bg-background font-body-md text-body-md" id="app-container">
+<!-- Top nav completely suppressed as per Linear/Transactional rule -->
+<!-- Main Container - Split Layout -->
+<main class="w-full max-w-5xl bg-surface-container-lowest rounded-[24px] shadow-ambient-l1 overflow-hidden flex flex-col md:flex-row relative z-10">
+<!-- Left Side: Form Area (RTL context, this appears on the right) -->
+<section class="w-full md:w-1/2 p-lg lg:p-xl flex flex-col justify-center relative">
+<!-- Brand & Emergency -->
+<div class="flex justify-between items-start w-full mb-lg">
+<div class="font-headline-lg text-headline-lg font-bold text-primary">
+                    عافيتي
+                </div>
+<a class="flex items-center gap-base text-error font-label-md text-label-md hover:opacity-80 transition-opacity bg-error-container/20 px-3 py-1.5 rounded-full" href="#">
+<span class="material-symbols-outlined" data-icon="emergency">emergency</span>
+                    حالة طارئة / Emergency
+                </a>
+</div>
+<!-- Login View -->
+<div class="w-full" id="login-view">
+<h1 class="font-headline-md text-headline-md text-on-surface mb-xs">مرحباً بعودتك</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mb-lg">سجل دخولك لمتابعة حالتك الصحية.</p>
+<form class="space-y-md">
+<div class="space-y-base">
+<label class="font-label-md text-label-md text-on-surface-variant block" for="login-email">البريد الإلكتروني</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-3 form-input-focus outline-none text-on-surface" id="login-email" placeholder="name@example.com" required="" type="email"/>
+</div>
+<div class="space-y-base">
+<label class="font-label-md text-label-md text-on-surface-variant block" for="login-password">كلمة المرور</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-3 form-input-focus outline-none text-on-surface" id="login-password" placeholder="••••••••" required="" type="password"/>
+</div>
+<div class="flex items-center justify-between">
+<label class="flex items-center gap-sm cursor-pointer">
+<input class="w-4 h-4 rounded border-outline-variant text-primary-container focus:ring-primary-container bg-surface-container-lowest" type="checkbox"/>
+<span class="font-label-md text-label-md text-on-surface-variant">تذكرني</span>
+</label>
+<a class="font-label-md text-label-md text-primary-container hover:underline" href="#">نسيت كلمة المرور؟</a>
+</div>
+<button class="w-full bg-primary-container text-on-primary font-label-md text-label-md py-3 rounded-full hover:bg-primary transition-colors mt-lg" type="button">
+                        تسجيل الدخول
+                    </button>
+</form>
+<div class="mt-lg text-center">
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        ليس لديك حساب؟ 
+                        <button class="text-primary-container font-label-md text-label-md font-bold hover:underline" onclick="document.getElementById('app-container').classList.add('show-signup')">إنشاء حساب</button>
+</p>
+</div>
+</div>
+<!-- Sign Up View -->
+<div class="w-full" id="signup-view">
+<h1 class="font-headline-md text-headline-md text-on-surface mb-xs">إنشاء حساب جديد</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mb-lg">ابدأ رحلتك نحو صحة أفضل اليوم.</p>
+<form class="space-y-md">
+<div class="space-y-base">
+<label class="font-label-md text-label-md text-on-surface-variant block" for="signup-name">الاسم الكامل</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-3 form-input-focus outline-none text-on-surface" id="signup-name" placeholder="الاسم الكامل" required="" type="text"/>
+</div>
+<div class="space-y-base">
+<label class="font-label-md text-label-md text-on-surface-variant block" for="signup-email">البريد الإلكتروني</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-3 form-input-focus outline-none text-on-surface" id="signup-email" placeholder="name@example.com" required="" type="email"/>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="space-y-base">
+<label class="font-label-md text-label-md text-on-surface-variant block" for="signup-password">كلمة المرور</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-3 form-input-focus outline-none text-on-surface" id="signup-password" placeholder="••••••••" required="" type="password"/>
+</div>
+<div class="space-y-base">
+<label class="font-label-md text-label-md text-on-surface-variant block" for="signup-confirm">تأكيد كلمة المرور</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-4 py-3 form-input-focus outline-none text-on-surface" id="signup-confirm" placeholder="••••••••" required="" type="password"/>
+</div>
+</div>
+<button class="w-full bg-primary-container text-on-primary font-label-md text-label-md py-3 rounded-full hover:bg-primary transition-colors mt-lg" type="button">
+                        إنشاء حساب
+                    </button>
+</form>
+<div class="mt-lg text-center">
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        لديك حساب بالفعل؟ 
+                        <button class="text-primary-container font-label-md text-label-md font-bold hover:underline" onclick="document.getElementById('app-container').classList.remove('show-signup')">تسجيل الدخول</button>
+</p>
+</div>
+</div>
+</section>
+<!-- Right Side: Imagery / Visuals (RTL context, this appears on the left) -->
+<section class="hidden md:block w-1/2 relative bg-surface-container-low overflow-hidden">
+<!-- Decorative Background Pattern -->
+<div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(#087f8c 1px, transparent 1px); background-size: 24px 24px;"></div>
+<!-- High-quality Medical Aesthetic Image -->
+<div class="absolute inset-0 w-full h-full mix-blend-multiply opacity-90" data-alt="A serene, professional medical clinic environment showing a modern, clean waiting area. Soft, natural daylight streams through large windows, creating a bright, optimistic atmosphere. The color palette features whites, gentle mint greens, and deep teal accents, conveying trust and modern healthcare. The scene is uncluttered and human-centric, avoiding sterile hospital aesthetics." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAmIbTGibf4kSp2Awke7dK6qKxsWE1E-yf2hUgeAo-VMLAPTfzTLx74B1XdOhqZQE-jmhG4LGBfU2shEBMRQaLEDb3Sunh9ksfTz9GSVYTXQg4kCmduPyy0fZBL19j3gb-xn_VXoi7v-aoNmDjgIzSH1ZlesWxc-K8PSael0DREE1M83nJ5pLOjmKfteoqlnPhRJ75punQegjwgpRa6JOdl6DlF2SrYZXsH1SH0dr4rsyBrgriWDIv7')"></div>
+<!-- Glassmorphism Overlay Card -->
+<div class="absolute bottom-xl right-xl left-xl bg-surface-container-lowest/80 backdrop-blur-md p-md rounded-[24px] border border-white/20 shadow-ambient-l1">
+<div class="flex items-center gap-md mb-sm">
+<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined" data-icon="health_and_safety">health_and_safety</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">رعاية طبية متطورة</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">تقنيات حديثة لراحتك</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+</body></html>

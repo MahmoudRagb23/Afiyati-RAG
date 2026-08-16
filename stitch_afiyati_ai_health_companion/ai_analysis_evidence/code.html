@@ -1,0 +1,329 @@
+<!DOCTYPE html><html dir="rtl" lang="ar"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>اسأل عافيتي - Afiyati</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-lowest": "#ffffff",
+                      "on-error": "#ffffff",
+                      "on-secondary-container": "#006f6a",
+                      "on-background": "#181c1d",
+                      "on-error-container": "#93000a",
+                      "tertiary": "#884a1a",
+                      "secondary": "#006a66",
+                      "surface-container-high": "#e5e9e9",
+                      "inverse-primary": "#79d4e2",
+                      "primary-fixed": "#95f1ff",
+                      "primary-fixed-dim": "#79d4e2",
+                      "secondary-fixed-dim": "#69d8d1",
+                      "tertiary-fixed": "#ffdcc7",
+                      "on-surface": "#181c1d",
+                      "inverse-on-surface": "#eef1f2",
+                      "outline": "#6e797b",
+                      "on-secondary": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "on-secondary-fixed-variant": "#00504d",
+                      "surface-variant": "#dfe3e4",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-container": "#effdff",
+                      "tertiary-fixed-dim": "#ffb786",
+                      "background": "#f6fafb",
+                      "error-container": "#ffdad6",
+                      "primary": "#00646f",
+                      "inverse-surface": "#2d3132",
+                      "surface-container": "#ebeeef",
+                      "on-primary-fixed": "#001f24",
+                      "primary-container": "#087f8c",
+                      "secondary-fixed": "#87f4ee",
+                      "on-tertiary-fixed-variant": "#703706",
+                      "surface": "#f6fafb",
+                      "surface-tint": "#006874",
+                      "on-primary-fixed-variant": "#004f57",
+                      "surface-bright": "#f6fafb",
+                      "surface-container-low": "#f1f4f5",
+                      "on-tertiary-fixed": "#311300",
+                      "on-surface-variant": "#3e494a",
+                      "surface-container-highest": "#dfe3e4",
+                      "outline-variant": "#bdc9ca",
+                      "tertiary-container": "#a66230",
+                      "surface-dim": "#d7dbdb",
+                      "secondary-container": "#84f2eb",
+                      "error": "#ba1a1a",
+                      "on-secondary-fixed": "#00201e",
+                      "on-tertiary-container": "#fff8f6"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xl": "64px",
+                      "xs": "4px",
+                      "margin-desktop": "80px",
+                      "sm": "12px",
+                      "md": "24px",
+                      "gutter": "20px",
+                      "base": "8px",
+                      "lg": "48px",
+                      "margin-mobile": "20px"
+              },
+              "fontFamily": {
+                      "label-md": ["Be Vietnam Pro"],
+                      "headline-xl-mobile": ["Be Vietnam Pro"],
+                      "headline-md": ["Be Vietnam Pro"],
+                      "headline-lg": ["Be Vietnam Pro"],
+                      "caption": ["Be Vietnam Pro"],
+                      "body-md": ["Be Vietnam Pro"],
+                      "body-lg": ["Be Vietnam Pro"],
+                      "headline-xl": ["Be Vietnam Pro"]
+              },
+              "fontSize": {
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                      "headline-xl-mobile": ["30px", {"lineHeight": "40px", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "42px", "fontWeight": "600"}],
+                      "caption": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "headline-xl": ["40px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+              }
+            }
+          }
+        }
+      </script>
+<style>
+        body { font-family: 'Be Vietnam Pro', sans-serif; }
+        .soft-shadow { box-shadow: 0 4px 20px rgba(16, 50, 56, 0.05); }
+        
+        /* Custom scrollbar for chat area */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #dfe3e4; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #bdc9ca; }
+      </style>
+</head>
+<body class="bg-background text-on-background h-screen flex overflow-hidden font-body-md text-body-md">
+<!-- SideNavBar (Shared Component) -->
+<nav class="hidden md:flex flex-col w-64 h-full bg-surface-container-low dark:bg-surface-container-highest p-4 z-40 shrink-0 border-l border-surface-container-highest">
+<div class="mb-md px-3">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">عافيتي</h1>
+<p class="font-caption text-caption text-on-surface-variant mt-1">Health Monitor</p>
+</div>
+<ul class="flex flex-col gap-xs flex-1">
+<li class="">
+<a class="flex items-center gap-sm text-on-surface-variant p-3 hover:bg-surface-container-high rounded-xl transition-colors" href="#">
+<span aria-hidden="true" class="material-symbols-outlined">home</span>
+<span class="font-label-md text-label-md">Home</span>
+</a>
+</li>
+<!-- Active State: Ask AI -->
+<li class="">
+<a class="flex items-center gap-sm bg-secondary-container text-on-secondary-container rounded-xl p-3 opacity-100 scale-100 transition-all" href="#">
+<span aria-hidden="true" class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+<span class="font-label-md text-label-md font-bold">Ask AI</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-sm text-on-surface-variant p-3 hover:bg-surface-container-high rounded-xl transition-colors" href="#">
+<span aria-hidden="true" class="material-symbols-outlined">restaurant</span>
+<span class="font-label-md text-label-md">Meal Analysis</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-sm text-on-surface-variant p-3 hover:bg-surface-container-high rounded-xl transition-colors" href="#">
+<span aria-hidden="true" class="material-symbols-outlined">monitor_heart</span>
+<span class="font-label-md text-label-md">Habits</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-sm text-on-surface-variant p-3 hover:bg-surface-container-high rounded-xl transition-colors" href="#">
+<span aria-hidden="true" class="material-symbols-outlined">medical_services</span>
+<span class="font-label-md text-label-md">Symptoms</span>
+</a>
+</li><li class="">
+<a class="flex items-center gap-sm text-on-surface-variant p-3 hover:bg-surface-container-high rounded-xl transition-colors" href="#">
+<span aria-hidden="true" class="material-symbols-outlined">pill</span>
+<span class="font-label-md text-label-md">Medications</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-sm text-on-surface-variant p-3 hover:bg-surface-container-high rounded-xl transition-colors" href="#">
+<span aria-hidden="true" class="material-symbols-outlined">history</span>
+<span class="font-label-md text-label-md">History</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-sm text-on-surface-variant p-3 hover:bg-surface-container-high rounded-xl transition-colors" href="#">
+<span aria-hidden="true" class="material-symbols-outlined">person</span>
+<span class="font-label-md text-label-md">Health Profile</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-sm text-on-surface-variant p-3 hover:bg-surface-container-high rounded-xl transition-colors" href="#">
+<span aria-hidden="true" class="material-symbols-outlined">library_books</span>
+<span class="font-label-md text-label-md">Sources</span>
+</a>
+</li>
+</ul>
+<div class="mt-auto flex flex-col gap-sm">
+<button class="w-full py-3 px-4 bg-error-container text-on-error-container font-label-md text-label-md rounded-xl font-bold flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">emergency</span>
+                EMERGENCY
+            </button>
+<a class="flex items-center gap-sm text-on-surface-variant p-3 hover:bg-surface-container-high rounded-xl transition-colors" href="#">
+<span aria-hidden="true" class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant p-3 hover:bg-surface-container-high rounded-xl transition-colors" href="#">
+<span aria-hidden="true" class="material-symbols-outlined">help</span>
+<span class="font-label-md text-label-md">Help</span>
+</a>
+</div>
+</nav>
+<!-- Main Chat Area -->
+<main class="flex-1 flex flex-col relative h-full bg-surface-bright">
+<!-- Header Mobile (Visible only on mobile if implemented, skipping for simplicity as nav handles desktop) -->
+<header class="md:hidden flex items-center justify-between p-4 bg-surface-container-lowest border-b border-surface-container-low">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">اسأل عافيتي</h1>
+<button class="p-2 text-on-surface-variant"><span class="material-symbols-outlined">menu</span></button>
+</header>
+<!-- Chat Canvas (Scrollable) -->
+<div class="flex-1 overflow-y-auto p-margin-mobile md:p-margin-desktop flex flex-col gap-lg pb-32">
+<!-- Intro / Suggestions -->
+<div class="flex flex-col items-center justify-center pt-xl pb-md text-center">
+<div class="w-16 h-16 rounded-full bg-primary-container flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-[32px] text-on-primary-container" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-2">مرحباً بك في عافيتي</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 max-w-md">أنا مساعدك الصحي الذكي. كيف يمكنني مساعدتك اليوم بخصوص نظامك الغذائي أو صحتك؟</p>
+<div class="flex flex-wrap justify-center gap-3">
+<button class="px-4 py-2 bg-surface-container text-primary font-label-md text-label-md rounded-full border border-outline-variant hover:bg-surface-container-high transition-colors">
+                        هل هذا الطعام مناسب لحالتي؟
+                    </button>
+<button class="px-4 py-2 bg-surface-container text-primary font-label-md text-label-md rounded-full border border-outline-variant hover:bg-surface-container-high transition-colors">
+                        ما هي الحصة المناسبة لي؟
+                    </button>
+</div>
+</div>
+<!-- User Message -->
+<div class="flex flex-col items-start self-start max-w-[85%] md:max-w-[70%]">
+<div class="bg-primary-container text-on-primary-container rounded-2xl rounded-tr-none px-6 py-4 soft-shadow">
+<p class="font-body-md text-body-md">هل يمكنني شرب كوبين من القهوة يومياً وأنا أعاني من ارتفاع ضغط الدم والسكري؟</p>
+</div>
+<span class="font-caption text-caption text-on-surface-variant mt-2 mr-2">أنت • 10:42 ص</span>
+</div>
+<!-- AI Response -->
+<div class="flex flex-col items-end self-end max-w-[95%] md:max-w-[80%]">
+<div class="bg-surface-container-lowest border border-surface-container-highest rounded-2xl rounded-tl-none p-6 md:p-8 soft-shadow w-full">
+<!-- 4. Visual Status -->
+<div class="flex items-center gap-2 mb-6">
+<span class="px-3 py-1 bg-tertiary-container/20 text-tertiary font-label-md text-label-md rounded-full flex items-center gap-1 font-bold">
+<span class="material-symbols-outlined text-[18px]">warning</span>
+                            حذر متوسط
+                        </span>
+</div>
+<!-- 1. Initial Assessment -->
+<div class="mb-6 pb-6 border-b border-surface-container-low">
+<h3 class="font-headline-md text-[20px] font-semibold text-on-surface mb-2">التقييم الأولي</h3>
+<p class="text-on-surface-variant font-body-md text-body-md leading-relaxed">بناءً على ملفك الصحي المسجل لدينا والذي يشمل (السكري من النوع الثاني، وارتفاع ضغط الدم)، فإن استهلاك كوبين من القهوة يومياً يتطلب الانتباه والتوازن.</p>
+</div>
+<!-- 2. Impact per condition (Bento-style grid) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+<!-- Diabetes Impact -->
+<div class="bg-surface p-4 rounded-xl border border-surface-container-low relative overflow-hidden">
+<div class="absolute top-0 right-0 w-1 h-full bg-secondary"></div>
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-secondary">bloodtype</span>
+<h4 class="font-label-md text-label-md font-bold text-on-surface">تأثيره على السكري</h4>
+</div>
+<p class="font-body-md text-[14px] text-on-surface-variant">القهوة السادة (بدون سكر أو حليب كامل الدسم) لا ترفع مستويات السكر في الدم بشكل مباشر. ومع ذلك، قد يقلل الكافيين بنسب طفيفة من حساسية الأنسولين لدى بعض الأشخاص.</p>
+</div>
+<!-- Hypertension Impact -->
+<div class="bg-surface p-4 rounded-xl border border-surface-container-low relative overflow-hidden">
+<div class="absolute top-0 right-0 w-1 h-full bg-tertiary"></div>
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-tertiary">monitor_heart</span>
+<h4 class="font-label-md text-label-md font-bold text-on-surface">تأثيره على ضغط الدم</h4>
+</div>
+<p class="font-body-md text-[14px] text-on-surface-variant">الكافيين يمكن أن يسبب ارتفاعاً مؤقتاً ولكن حاداً في ضغط الدم. بالنسبة لمرضى الضغط، استهلاك كميات معتدلة (كوب إلى كوبين) غالباً ما يكون مقبولاً، لكن يجب مراقبة القراءات.</p>
+</div>
+</div>
+<!-- 3. Suggested Quantity -->
+<div class="bg-primary-container/10 p-5 rounded-xl mb-6 flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-1">check_circle</span>
+<div>
+<h4 class="font-label-md text-label-md font-bold text-primary mb-1">الكمية المقترحة</h4>
+<p class="font-body-md text-body-md text-on-surface-variant"><strong>كوب واحد إلى كوبين كحد أقصى يومياً.</strong> يُنصح بتناولها قبل فترة الظهيرة لتجنب التأثير على جودة النوم، والتأكد من أنها خالية من الإضافات السكرية.</p>
+</div>
+</div>
+<!-- Collapsible Evidence Panel -->
+<details class="group bg-surface-container-low rounded-xl overflow-hidden [&amp;_summary::-webkit-details-marker]:hidden">
+<summary class="flex items-center justify-between p-4 cursor-pointer hover:bg-surface-container-high transition-colors font-label-md text-label-md font-bold text-on-surface">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">science</span>
+                                لماذا قالت عافيتي هذا؟
+                            </div>
+<span class="material-symbols-outlined group-open:-rotate-180 transition-transform duration-300">expand_more</span>
+</summary>
+<div class="p-4 pt-0 text-[14px] text-on-surface-variant border-t border-surface-variant mt-2 bg-surface-container-lowest">
+<ul class="list-disc list-inside space-y-2 mt-3">
+<li class=""><strong>المعهد الوطني للصحة والرعاية المتميزة (NICE):</strong> الإرشادات السريرية لإدارة ارتفاع ضغط الدم تنصح بالاعتدال في استهلاك الكافيين.</li>
+<li class=""><strong>الجمعية الأمريكية للسكري (ADA):</strong> توصيات التغذية السريرية لعام 2023 تشير إلى أن القهوة السوداء خيار آمن ضمن الحدود المعتدلة.</li>
+</ul>
+<p class="mt-4 text-[12px] opacity-70">تم استخراج هذه المعلومات باستخدام أنظمة عافيتي المعتمدة على الأدلة الطبية (RAG).</p>
+</div>
+</details>
+</div>
+<div class="flex items-center gap-2 mt-2 ml-2">
+<span class="font-caption text-caption text-on-surface-variant">عافيتي • 10:43 ص</span>
+<button class="text-outline hover:text-primary transition-colors"><span class="material-symbols-outlined text-[16px]">thumb_up</span></button>
+<button class="text-outline hover:text-primary transition-colors"><span class="material-symbols-outlined text-[16px]">thumb_down</span></button>
+</div>
+</div>
+</div>
+<!-- Input Area (Fixed Bottom) -->
+<div class="absolute bottom-0 w-full bg-surface-container-lowest border-t border-surface-variant p-4 px-margin-mobile md:px-margin-desktop">
+<div class="max-w-4xl mx-auto relative">
+<div class="flex items-center bg-surface-container-low rounded-[24px] border border-outline-variant focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all p-2 soft-shadow">
+<!-- Action Icons -->
+<div class="flex items-center gap-1 pr-2 border-l border-surface-variant pl-2">
+<button class="p-2 text-outline hover:text-primary hover:bg-surface-container-high rounded-full transition-all flex items-center justify-center">
+<span class="material-symbols-outlined">add_a_photo</span>
+</button>
+<button class="p-2 text-outline hover:text-primary hover:bg-surface-container-high rounded-full transition-all flex items-center justify-center">
+<span class="material-symbols-outlined">attach_file</span>
+</button>
+</div>
+<!-- Input Field -->
+<input class="flex-1 bg-transparent border-none focus:ring-0 text-on-surface font-body-md text-body-md px-4 py-3 placeholder:text-outline" dir="rtl" placeholder="اسأل عافيتي عن صحتك، أو التقط صورة لوجبتك..." type="text">
+<!-- Send & Voice Actions -->
+<div class="flex items-center gap-2 pl-2">
+<button class="p-2 text-primary hover:bg-primary-container rounded-full transition-all flex items-center justify-center">
+<span class="material-symbols-outlined">mic</span>
+</button>
+<button class="p-3 bg-primary text-on-primary hover:opacity-90 rounded-full transition-all flex items-center justify-center shadow-md">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+</div>
+<div class="text-center mt-2">
+<span class="font-caption text-caption text-outline text-[11px]">قد يخطئ الذكاء الاصطناعي. يرجى استشارة طبيبك للقرارات الطبية الهامة.</span>
+</div>
+</div>
+</div>
+</main>
+
+
+</body></html>

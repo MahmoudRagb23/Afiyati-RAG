@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html class="dark" dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>عافيتي - Technical RAG Demo</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-secondary-container": "#006f6a",
+                        "on-background": "#181c1d",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#884a1a",
+                        "secondary": "#006a66",
+                        "surface-container-high": "#e5e9e9",
+                        "inverse-primary": "#79d4e2",
+                        "primary-fixed": "#95f1ff",
+                        "primary-fixed-dim": "#79d4e2",
+                        "secondary-fixed-dim": "#69d8d1",
+                        "tertiary-fixed": "#ffdcc7",
+                        "on-surface": "#181c1d",
+                        "inverse-on-surface": "#eef1f2",
+                        "outline": "#6e797b",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed-variant": "#00504d",
+                        "surface-variant": "#dfe3e4",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-container": "#effdff",
+                        "tertiary-fixed-dim": "#ffb786",
+                        "background": "#f6fafb",
+                        "error-container": "#ffdad6",
+                        "primary": "#00646f",
+                        "inverse-surface": "#2d3132",
+                        "surface-container": "#ebeeef",
+                        "on-primary-fixed": "#001f24",
+                        "primary-container": "#087f8c",
+                        "secondary-fixed": "#87f4ee",
+                        "on-tertiary-fixed-variant": "#703706",
+                        "surface": "#f6fafb",
+                        "surface-tint": "#006874",
+                        "on-primary-fixed-variant": "#004f57",
+                        "surface-bright": "#f6fafb",
+                        "surface-container-low": "#f1f4f5",
+                        "on-tertiary-fixed": "#311300",
+                        "on-surface-variant": "#3e494a",
+                        "surface-container-highest": "#dfe3e4",
+                        "outline-variant": "#bdc9ca",
+                        "tertiary-container": "#a66230",
+                        "surface-dim": "#d7dbdb",
+                        "secondary-container": "#84f2eb",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed": "#00201e",
+                        "on-tertiary-container": "#fff8f6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "64px",
+                        "xs": "4px",
+                        "margin-desktop": "80px",
+                        "sm": "12px",
+                        "md": "24px",
+                        "gutter": "20px",
+                        "base": "8px",
+                        "lg": "48px",
+                        "margin-mobile": "20px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Be Vietnam Pro"],
+                        "headline-xl-mobile": ["Be Vietnam Pro"],
+                        "headline-md": ["Be Vietnam Pro"],
+                        "headline-lg": ["Be Vietnam Pro"],
+                        "caption": ["Be Vietnam Pro"],
+                        "body-md": ["Be Vietnam Pro"],
+                        "body-lg": ["Be Vietnam Pro"],
+                        "headline-xl": ["Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "headline-xl-mobile": ["30px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "42px", "fontWeight": "600" }],
+                        "caption": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-xl": ["40px", { "lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Be Vietnam Pro', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface antialiased min-h-screen flex flex-col md:flex-row">
+<!-- Desktop Side Navigation -->
+<aside class="hidden md:flex flex-col bg-surface-container-low h-full w-64 fixed left-0 top-0 z-40 p-4">
+<div class="mb-lg px-3">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">عافيتي</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Health Monitor</p>
+</div>
+<nav class="flex-1 space-y-sm">
+<a class="flex items-center gap-sm text-on-surface-variant p-3 font-label-md text-label-md hover:bg-surface-container-high rounded-xl" href="#">
+<span class="material-symbols-outlined">home</span>
+<span>Home</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant p-3 font-label-md text-label-md hover:bg-surface-container-high rounded-xl" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+<span>Ask AI</span>
+</a>
+<a class="flex items-center gap-sm bg-secondary-container text-on-secondary-container rounded-xl p-3 font-label-md text-label-md scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">library_books</span>
+<span>Sources</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 p-margin-mobile md:p-margin-desktop bg-background min-h-screen">
+<header class="mb-lg">
+<h2 class="font-headline-lg text-headline-lg text-primary-container">Technical RAG Evidence</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">Retrieval-Augmented Generation Analysis Dashboard</p>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-md">
+<!-- Column 1: Query & Summary -->
+<div class="lg:col-span-1 space-y-md">
+<!-- User Query Card -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-sm border border-surface-container-highest">
+<h3 class="font-label-md text-label-md text-on-surface-variant mb-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary">psychology</span>
+                        User Query
+                    </h3>
+<p class="font-body-md text-body-md text-on-surface">"What are the recommended dietary guidelines for managing Type 2 Diabetes according to the latest clinical studies?"</p>
+</div>
+<!-- Coverage Summary -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-sm border border-surface-container-highest">
+<h3 class="font-label-md text-label-md text-on-surface-variant mb-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-secondary">analytics</span>
+                        Citation Coverage
+                    </h3>
+<div class="flex items-center justify-between mb-sm">
+<span class="font-body-md text-body-md">Claims Supported</span>
+<span class="font-headline-md text-headline-md text-secondary">94%</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 94%"></div>
+</div>
+<div class="mt-md flex gap-sm">
+<div class="flex-1 bg-surface p-sm rounded-lg text-center">
+<span class="block font-headline-md text-headline-md text-primary">12</span>
+<span class="font-caption text-caption text-on-surface-variant">Chunks Retrieved</span>
+</div>
+<div class="flex-1 bg-surface p-sm rounded-lg text-center">
+<span class="block font-headline-md text-headline-md text-primary">8</span>
+<span class="font-caption text-caption text-on-surface-variant">Sources Used</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Column 2 & 3: Evidence & Claims -->
+<div class="lg:col-span-2 space-y-md">
+<!-- Retrieved Evidence List -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-sm border border-surface-container-highest">
+<h3 class="font-label-md text-label-md text-on-surface-variant mb-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary">plagiarism</span>
+                        Top Retrieved Evidence
+                    </h3>
+<div class="space-y-sm">
+<!-- Evidence Item 1 -->
+<div class="border border-outline-variant rounded-lg p-sm bg-surface">
+<div class="flex justify-between items-start mb-xs">
+<div class="flex gap-xs items-center">
+<span class="bg-primary-container text-on-primary-container font-caption text-caption px-2 py-1 rounded-md">Rank #1</span>
+<span class="bg-secondary-container text-on-secondary-container font-caption text-caption px-2 py-1 rounded-md">Score: 0.98</span>
+</div>
+<span class="font-caption text-caption text-on-surface-variant">Doc: T2D_Guidelines_2023.pdf (p.45)</span>
+</div>
+<p class="font-caption text-caption text-on-surface mt-xs italic">"...primary nutritional therapy for T2D includes reducing overall carbohydrate intake, emphasizing high-fiber foods, and minimizing added sugars. Mediterranean-style diets have shown highest efficacy..."</p>
+<div class="mt-xs text-left">
+<span class="font-caption text-caption text-outline">Chunk ID: chunk-8f92-a1b2</span>
+</div>
+</div>
+<!-- Evidence Item 2 -->
+<div class="border border-outline-variant rounded-lg p-sm bg-surface">
+<div class="flex justify-between items-start mb-xs">
+<div class="flex gap-xs items-center">
+<span class="bg-primary-container text-on-primary-container font-caption text-caption px-2 py-1 rounded-md">Rank #2</span>
+<span class="bg-secondary-container text-on-secondary-container font-caption text-caption px-2 py-1 rounded-md">Score: 0.92</span>
+</div>
+<span class="font-caption text-caption text-on-surface-variant">Doc: ClinicalNutrition_Journal_v42.pdf (p.12)</span>
+</div>
+<p class="font-caption text-caption text-on-surface mt-xs italic">"Clinical trials demonstrate that replacing saturated fats with polyunsaturated and monounsaturated fats significantly improves glycemic control in diabetic patients."</p>
+<div class="mt-xs text-left">
+<span class="font-caption text-caption text-outline">Chunk ID: chunk-4c33-d9e1</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Generated Claims Analysis -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-sm border border-surface-container-highest">
+<h3 class="font-label-md text-label-md text-on-surface-variant mb-md flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary">fact_check</span>
+                        Claims Analysis
+                    </h3>
+<ul class="space-y-sm">
+<li class="flex gap-sm items-start p-sm rounded-lg bg-surface-container-low">
+<span class="material-symbols-outlined text-secondary mt-1" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div>
+<p class="font-body-md text-body-md text-on-surface">Reduce overall carbohydrate intake and focus on high-fiber foods.</p>
+<p class="font-caption text-caption text-primary mt-xs">Supported by: T2D_Guidelines_2023.pdf [chunk-8f92-a1b2]</p>
+</div>
+</li>
+<li class="flex gap-sm items-start p-sm rounded-lg bg-surface-container-low">
+<span class="material-symbols-outlined text-secondary mt-1" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div>
+<p class="font-body-md text-body-md text-on-surface">Adopt a Mediterranean-style diet for better outcomes.</p>
+<p class="font-caption text-caption text-primary mt-xs">Supported by: T2D_Guidelines_2023.pdf [chunk-8f92-a1b2]</p>
+</div>
+</li>
+<li class="flex gap-sm items-start p-sm rounded-lg bg-error-container">
+<span class="material-symbols-outlined text-error mt-1" style="font-variation-settings: 'FILL' 1;">error</span>
+<div>
+<p class="font-body-md text-body-md text-on-surface">Completely eliminate all fruit consumption.</p>
+<p class="font-caption text-caption text-error mt-xs">Unsupported: Contradicted by general dietary guidelines (No matching chunk found with score &gt; 0.85)</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</main>
+</body></html>

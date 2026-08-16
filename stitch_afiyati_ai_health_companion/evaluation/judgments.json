@@ -1,0 +1,114 @@
+{
+  "dataset_version": "afiyati-qrels-2026.08-provisional.1",
+  "label_tier": "provisional",
+  "clinical_adjudication": false,
+  "annotation_method": "Passage review against the locally stored official guideline PDFs. These page-level labels are suitable for engineering evaluation but require independent clinician adjudication before clinical or publication claims.",
+  "created_at": "2026-08-16",
+  "questions": {
+    "q01": {
+      "relevant_passages": [
+        {"source_filename": "NICE_NG136_Hypertension_Adults.pdf", "pages": [11]}
+      ],
+      "rationale": "NG136 directly discusses excessive coffee and caffeine consumption."
+    },
+    "q02": {
+      "relevant_passages": [
+        {"source_filename": "NICE_NG28_Type2_Diabetes_Adults.pdf", "pages": [10]},
+        {"source_filename": "KDIGO_CKD_2024.pdf", "pages": [111, 112, 113]}
+      ],
+      "rationale": "The diabetes guideline covers fruit and carbohydrate quality; KDIGO provides individualized potassium and fruit guidance."
+    },
+    "q03": {
+      "relevant_passages": [
+        {"source_filename": "NICE_NG136_Hypertension_Adults.pdf", "pages": [11]}
+      ],
+      "rationale": "NG136 recommendation 1.4.5 directly addresses dietary sodium."
+    },
+    "q04": {
+      "relevant_passages": [
+        {"source_filename": "NICE_NG28_Type2_Diabetes_Adults.pdf", "pages": [12, 13, 14]}
+      ],
+      "rationale": "NG28 section 1.5 contains HbA1c measurement and individualized targets."
+    },
+    "q05": {
+      "relevant_passages": [
+        {"source_filename": "NICE_NG136_Hypertension_Adults.pdf", "pages": [11]}
+      ],
+      "rationale": "NG136 directly discusses excessive coffee and caffeine consumption."
+    },
+    "q06": {
+      "relevant_passages": [
+        {"source_filename": "NICE_NG28_Type2_Diabetes_Adults.pdf", "pages": [10, 11, 22, 25]}
+      ],
+      "rationale": "NG28 integrates physical activity with the personalized diabetes plan and links to activity guidance."
+    },
+    "q07": {
+      "relevant_passages": [
+        {"source_filename": "KDIGO_CKD_2024.pdf", "pages": [41, 42]}
+      ],
+      "rationale": "KDIGO section 3.2 gives CKD-specific physical activity practice points."
+    },
+    "q08": {
+      "relevant_passages": [
+        {"source_filename": "NICE_NG136_Hypertension_Adults.pdf", "pages": [11]},
+        {"source_filename": "KDIGO_CKD_2024.pdf", "pages": [42, 43, 96, 97, 98]}
+      ],
+      "rationale": "Both guidelines provide condition-specific sodium recommendations and cautions."
+    },
+    "q09": {
+      "relevant_passages": [
+        {"source_filename": "GINA_Asthma_Strategy_2026.pdf", "pages": [64, 65, 66, 67, 70, 71, 72]}
+      ],
+      "rationale": "GINA's non-pharmacological strategy section covers activity, diet, smoking, weight, exposures, and stress."
+    },
+    "q10": {
+      "relevant_passages": [
+        {"source_filename": "GINA_Asthma_Strategy_2026.pdf", "pages": [64, 66]}
+      ],
+      "rationale": "GINA summarizes smoking cessation and details the effects of active and environmental tobacco smoke."
+    },
+    "q11": {
+      "relevant_passages": [
+        {"source_filename": "NICE_NG28_Type2_Diabetes_Adults.pdf", "pages": [10, 11]}
+      ],
+      "rationale": "NG28 gives relevant carbohydrate-quality and individualized meal-planning guidance without making a rice-specific claim."
+    },
+    "q12": {
+      "relevant_passages": [
+        {"source_filename": "NICE_NG28_Type2_Diabetes_Adults.pdf", "pages": [10, 11]}
+      ],
+      "rationale": "The dietary section is the authoritative passage for determining what dietary patterns NG28 does or does not discuss."
+    },
+    "q13": {
+      "relevant_passages": [
+        {"source_filename": "KDIGO_CKD_2024.pdf", "pages": [99, 111, 112, 113]}
+      ],
+      "rationale": "KDIGO emphasizes individualized assessment and moderation for hyperkalemia rather than a universal safe quantity."
+    },
+    "q14": {
+      "relevant_passages": [
+        {"source_filename": "NICE_NG136_Hypertension_Adults.pdf", "pages": [7, 8, 15, 16]}
+      ],
+      "rationale": "NG136 provides HBPM diagnosis, technique, self-monitoring, and target guidance."
+    },
+    "q15": {
+      "relevant_passages": [
+        {"source_filename": "NICE_NG28_Type2_Diabetes_Adults.pdf", "pages": [10, 11, 22, 25]}
+      ],
+      "rationale": "NG28 integrates increasing physical activity into individualized diabetes management."
+    },
+    "q25": {
+      "relevant_passages": [
+        {"source_filename": "KDIGO_CKD_2024.pdf", "pages": [43, 44, 98, 99]}
+      ],
+      "rationale": "KDIGO provides RAS inhibitor use, monitoring, sodium, and related lifestyle guidance."
+    },
+    "q27": {
+      "relevant_passages": [
+        {"source_filename": "NICE_NG136_Hypertension_Adults.pdf", "pages": [11]},
+        {"source_filename": "KDIGO_CKD_2024.pdf", "pages": [42, 43, 96, 97, 98]}
+      ],
+      "rationale": "The question explicitly requires separate sodium evidence from both hypertension and CKD guidance."
+    }
+  }
+}

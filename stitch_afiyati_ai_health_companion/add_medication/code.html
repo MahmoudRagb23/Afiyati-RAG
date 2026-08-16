@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>إضافة دواء جديد - عافيتي</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#006f6a",
+                        "tertiary-fixed": "#ffdcc7",
+                        "secondary-container": "#84f2eb",
+                        "on-secondary-fixed": "#00201e",
+                        "on-surface-variant": "#3e494a",
+                        "surface-container-low": "#f1f4f5",
+                        "surface": "#f6fafb",
+                        "surface-container-high": "#e5e9e9",
+                        "primary-fixed-dim": "#79d4e2",
+                        "tertiary-container": "#a66230",
+                        "inverse-primary": "#79d4e2",
+                        "on-error": "#ffffff",
+                        "surface-variant": "#dfe3e4",
+                        "tertiary": "#884a1a",
+                        "surface-container": "#ebeeef",
+                        "on-tertiary-container": "#fff8f6",
+                        "inverse-surface": "#2d3132",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "surface-dim": "#d7dbdb",
+                        "surface-bright": "#f6fafb",
+                        "on-secondary-fixed-variant": "#00504d",
+                        "surface-tint": "#006874",
+                        "primary-container": "#087f8c",
+                        "on-tertiary-fixed-variant": "#703706",
+                        "inverse-on-surface": "#eef1f2",
+                        "on-surface": "#181c1d",
+                        "tertiary-fixed-dim": "#ffb786",
+                        "secondary-fixed": "#87f4ee",
+                        "on-primary-fixed": "#001f24",
+                        "on-background": "#181c1d",
+                        "on-primary": "#ffffff",
+                        "outline": "#6e797b",
+                        "surface-container-highest": "#dfe3e4",
+                        "outline-variant": "#bdc9ca",
+                        "on-primary-fixed-variant": "#004f57",
+                        "on-primary-container": "#effdff",
+                        "background": "#f6fafb",
+                        "on-tertiary-fixed": "#311300",
+                        "secondary": "#006a66",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#95f1ff",
+                        "secondary-fixed-dim": "#69d8d1",
+                        "primary": "#00646f",
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "base": "8px",
+                        "margin-desktop": "80px",
+                        "xl": "64px",
+                        "gutter": "20px",
+                        "lg": "48px",
+                        "margin-mobile": "20px",
+                        "sm": "12px",
+                        "md": "24px"
+                    },
+                    "fontFamily": {
+                        "caption": ["beVietnamPro"],
+                        "headline-xl": ["beVietnamPro"],
+                        "body-md": ["beVietnamPro"],
+                        "headline-xl-mobile": ["beVietnamPro"],
+                        "headline-md": ["beVietnamPro"],
+                        "label-md": ["beVietnamPro"],
+                        "headline-lg": ["beVietnamPro"],
+                        "body-lg": ["beVietnamPro"]
+                    },
+                    "fontSize": {
+                        "caption": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "headline-xl": ["40px", { "lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-xl-mobile": ["30px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "headline-lg": ["32px", { "lineHeight": "42px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .custom-shadow {
+            box-shadow: 0 4px 20px rgba(16, 50, 56, 0.05);
+        }
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #087F8C;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #087F8C;
+        }
+        .toggle-checkbox {
+            right: 0;
+            z-index: 1;
+            border-color: #dfe3e4;
+            transition: all 0.3s;
+        }
+        .toggle-label {
+            width: 3rem;
+            height: 1.5rem;
+            background-color: #dfe3e4;
+            border-radius: 9999px;
+            transition: all 0.3s;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md">
+<!-- Top Navigation (Suppressed for Task-Focused Form, replacing with minimal back header) -->
+<header class="bg-surface-container-lowest shadow-sm sticky top-0 z-50">
+<div class="flex items-center px-margin-mobile md:px-margin-desktop py-4 max-w-7xl mx-auto">
+<button aria-label="العودة" class="text-primary hover:text-primary-container transition-colors flex items-center justify-center w-10 h-10 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">arrow_forward</span>
+</button>
+<h1 class="font-headline-md text-headline-md text-on-surface mr-4">إضافة دواء جديد</h1>
+</div>
+</header>
+<main class="flex-grow px-margin-mobile md:px-margin-desktop py-8 max-w-3xl mx-auto w-full">
+<!-- Form Container -->
+<div class="bg-surface-container-lowest rounded-3xl p-6 md:p-8 custom-shadow">
+<form action="#" class="space-y-6" method="POST">
+<!-- Medication Info Section -->
+<div class="space-y-4">
+<h2 class="font-headline-md text-headline-md text-primary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">medication</span>
+                        معلومات الدواء
+                    </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Medication Name -->
+<div class="col-span-1 md:col-span-2">
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1" for="medication_name">اسم الدواء</label>
+<input class="w-full bg-surface border border-outline-variant rounded-xl px-4 py-3 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors placeholder-on-surface-variant/50" id="medication_name" name="medication_name" placeholder="مثال: بانادول، أوميبرازول..." type="text"/>
+</div>
+<!-- Dose -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1" for="dose">الجرعة</label>
+<input class="w-full bg-surface border border-outline-variant rounded-xl px-4 py-3 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors placeholder-on-surface-variant/50" id="dose" name="dose" placeholder="مثال: 500 ملغ" type="text"/>
+</div>
+</div>
+</div>
+<hr class="border-surface-variant"/>
+<!-- Schedule Section -->
+<div class="space-y-4">
+<h2 class="font-headline-md text-headline-md text-primary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">schedule</span>
+                        الجدول الزمني
+                    </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Times per day -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1" for="frequency">عدد المرات يومياً</label>
+<select class="w-full bg-surface border border-outline-variant rounded-xl px-4 py-3 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors appearance-none" id="frequency" name="frequency">
+<option value="1">مرة واحدة</option>
+<option value="2">مرتين</option>
+<option value="3">ثلاث مرات</option>
+<option value="4">أربع مرات</option>
+<option value="custom">مخصص</option>
+</select>
+</div>
+<!-- Dose Times (Simplified Picker for demo) -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1">أوقات الجرعات</label>
+<div class="flex gap-2">
+<input class="w-full bg-surface border border-outline-variant rounded-xl px-4 py-3 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors" name="dose_time_1" type="time"/>
+<button aria-label="إضافة وقت" class="bg-secondary-container text-on-secondary-container rounded-xl w-12 flex items-center justify-center hover:bg-secondary transition-colors hover:text-on-secondary" type="button">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<hr class="border-surface-variant"/>
+<!-- Treatment Duration Section -->
+<div class="space-y-4">
+<h2 class="font-headline-md text-headline-md text-primary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">date_range</span>
+                        فترة العلاج
+                    </h2>
+<!-- Treatment Type Toggle -->
+<div class="flex items-center justify-between p-4 bg-surface rounded-xl border border-outline-variant">
+<div>
+<p class="font-body-md text-body-md text-on-surface font-medium">نوع العلاج</p>
+<p class="font-caption text-caption text-on-surface-variant">حدد ما إذا كان دواءً مستمراً أو لفترة محددة.</p>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-label-md text-label-md text-on-surface-variant" id="treatment-type-label">دائم</span>
+<div class="relative inline-block w-12 align-middle select-none transition duration-200 ease-in">
+<input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer" id="treatment_period_toggle" name="treatment_period_toggle" onchange="toggleTreatmentPeriod()" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-surface-variant cursor-pointer" for="treatment_period_toggle"></label>
+</div>
+<span class="font-label-md text-label-md text-on-surface-variant opacity-50" id="treatment-period-label">فترة محددة</span>
+</div>
+</div>
+<!-- Date Pickers (Hidden by default, shown if Treatment Period is selected) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter hidden opacity-0 transition-opacity duration-300" id="date_picker_container">
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1" for="start_date">تاريخ البدء</label>
+<input class="w-full bg-surface border border-outline-variant rounded-xl px-4 py-3 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors" id="start_date" name="start_date" type="date"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1" for="end_date">تاريخ الانتهاء</label>
+<input class="w-full bg-surface border border-outline-variant rounded-xl px-4 py-3 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors" id="end_date" name="end_date" type="date"/>
+</div>
+</div>
+</div>
+<hr class="border-surface-variant"/>
+<!-- Notes Section -->
+<div class="space-y-4">
+<h2 class="font-headline-md text-headline-md text-primary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">note_alt</span>
+                        ملاحظات
+                    </h2>
+<div>
+<label class="sr-only" for="notes">ملاحظات (مثال: بعد الأكل)</label>
+<textarea class="w-full bg-surface border border-outline-variant rounded-xl px-4 py-3 text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors resize-none placeholder-on-surface-variant/50" id="notes" name="notes" placeholder="أضف أي ملاحظات إضافية هنا (مثال: يؤخذ بعد الطعام)..." rows="3"></textarea>
+</div>
+</div>
+<!-- Safety Guardrail -->
+<div class="bg-error-container/20 border border-error-container rounded-xl p-4 flex items-start gap-3">
+<span class="material-symbols-outlined text-error mt-0.5" style="font-variation-settings: 'FILL' 1;">info</span>
+<div>
+<p class="font-label-md text-label-md text-error font-medium mb-1">تنبيه طبي</p>
+<p class="font-caption text-caption text-on-surface">تطبيق عافيتي لا يقدم وصفات طبية. هذه الأداة مخصصة لتتبع الأدوية الموصوفة من قبل طبيبك فقط. يرجى استشارة مقدم الرعاية الصحية لأي استفسارات طبية.</p>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex flex-col sm:flex-row justify-end gap-4 mt-8 pt-4">
+<button class="px-6 py-3 rounded-2xl border-2 border-[#3AAFA9] text-[#3AAFA9] font-label-md text-label-md font-semibold hover:bg-surface-variant transition-colors w-full sm:w-auto text-center" type="button">إلغاء</button>
+<button class="px-6 py-3 rounded-2xl bg-[#087F8C] text-white font-label-md text-label-md font-semibold hover:bg-opacity-90 transition-colors w-full sm:w-auto text-center shadow-sm" type="submit">حفظ الدواء</button>
+</div>
+</form>
+</div>
+</main>
+<!-- Navigation Suppressed logic applied - task focused page -->
+<script>
+        function toggleTreatmentPeriod() {
+            const toggle = document.getElementById('treatment_period_toggle');
+            const container = document.getElementById('date_picker_container');
+            const labelPermanent = document.getElementById('treatment-type-label');
+            const labelPeriod = document.getElementById('treatment-period-label');
+
+            if (toggle.checked) {
+                container.classList.remove('hidden');
+                // Use setTimeout to allow display:block to apply before changing opacity for transition
+                setTimeout(() => {
+                    container.classList.remove('opacity-0');
+                    container.classList.add('opacity-100');
+                }, 10);
+                
+                labelPeriod.classList.remove('opacity-50');
+                labelPermanent.classList.add('opacity-50');
+            } else {
+                container.classList.remove('opacity-100');
+                container.classList.add('opacity-0');
+                
+                // Wait for transition to finish before hiding
+                setTimeout(() => {
+                    container.classList.add('hidden');
+                }, 300);
+
+                labelPermanent.classList.remove('opacity-50');
+                labelPeriod.classList.add('opacity-50');
+            }
+        }
+    </script>
+</body></html>

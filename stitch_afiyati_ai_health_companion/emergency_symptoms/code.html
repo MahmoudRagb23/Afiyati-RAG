@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Symptom Input - Afiyati</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-secondary-container": "#006f6a",
+                        "on-background": "#181c1d",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#884a1a",
+                        "secondary": "#006a66",
+                        "surface-container-high": "#e5e9e9",
+                        "inverse-primary": "#79d4e2",
+                        "primary-fixed": "#95f1ff",
+                        "primary-fixed-dim": "#79d4e2",
+                        "secondary-fixed-dim": "#69d8d1",
+                        "tertiary-fixed": "#ffdcc7",
+                        "on-surface": "#181c1d",
+                        "inverse-on-surface": "#eef1f2",
+                        "outline": "#6e797b",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed-variant": "#00504d",
+                        "surface-variant": "#dfe3e4",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-container": "#effdff",
+                        "tertiary-fixed-dim": "#ffb786",
+                        "background": "#f6fafb",
+                        "error-container": "#ffdad6",
+                        "primary": "#00646f",
+                        "inverse-surface": "#2d3132",
+                        "surface-container": "#ebeeef",
+                        "on-primary-fixed": "#001f24",
+                        "primary-container": "#087f8c",
+                        "secondary-fixed": "#87f4ee",
+                        "on-tertiary-fixed-variant": "#703706",
+                        "surface": "#f6fafb",
+                        "surface-tint": "#006874",
+                        "on-primary-fixed-variant": "#004f57",
+                        "surface-bright": "#f6fafb",
+                        "surface-container-low": "#f1f4f5",
+                        "on-tertiary-fixed": "#311300",
+                        "on-surface-variant": "#3e494a",
+                        "surface-container-highest": "#dfe3e4",
+                        "outline-variant": "#bdc9ca",
+                        "tertiary-container": "#a66230",
+                        "surface-dim": "#d7dbdb",
+                        "secondary-container": "#84f2eb",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed": "#00201e",
+                        "on-tertiary-container": "#fff8f6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "64px",
+                        "xs": "4px",
+                        "margin-desktop": "80px",
+                        "sm": "12px",
+                        "md": "24px",
+                        "gutter": "20px",
+                        "base": "8px",
+                        "lg": "48px",
+                        "margin-mobile": "20px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Be Vietnam Pro"],
+                        "headline-xl-mobile": ["Be Vietnam Pro"],
+                        "headline-md": ["Be Vietnam Pro"],
+                        "headline-lg": ["Be Vietnam Pro"],
+                        "caption": ["Be Vietnam Pro"],
+                        "body-md": ["Be Vietnam Pro"],
+                        "body-lg": ["Be Vietnam Pro"],
+                        "headline-xl": ["Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "headline-xl-mobile": ["30px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "42px", "fontWeight": "600" }],
+                        "caption": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-xl": ["40px", { "lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Be Vietnam Pro', sans-serif; }
+    </style>
+</head>
+<body class="bg-error text-on-error min-h-screen flex flex-col items-center justify-center p-margin-mobile md:p-margin-desktop relative overflow-hidden">
+<!-- Ambient Red Glow Effect for Emergency -->
+<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-error-container/20 via-error to-error pointer-events-none z-0"></div>
+<div class="relative z-10 max-w-2xl w-full text-center space-y-lg flex flex-col items-center">
+<!-- Warning Icon -->
+<div class="bg-on-error text-error p-md rounded-full inline-flex animate-pulse shadow-2xl">
+<span class="material-symbols-outlined text-[64px]" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<!-- Headline -->
+<div class="space-y-sm">
+<h1 class="font-headline-xl text-headline-xl md:font-headline-xl md:text-headline-xl">You may need urgent medical help</h1>
+<p class="font-body-lg text-body-lg opacity-90">Based on your symptoms, this could be a life-threatening emergency.</p>
+</div>
+<!-- Emergency Action Button -->
+<button class="w-full md:w-auto bg-on-error text-error font-headline-lg text-headline-lg py-md px-xl rounded-full shadow-[0_12px_40px_rgba(186,26,26,0.3)] hover:scale-105 transition-transform duration-300 flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined text-[40px]">phone_in_talk</span>
+            Call Emergency Now
+        </button>
+<!-- Rapid Symptom Confirmation (Emergency Mode) -->
+<div class="w-full bg-error-container/10 border border-on-error/20 rounded-3xl p-md mt-lg backdrop-blur-sm">
+<p class="font-label-md text-label-md uppercase tracking-wider opacity-80 mb-sm">Confirm Critical Symptoms</p>
+<div class="grid grid-cols-2 gap-sm">
+<button class="bg-on-error/10 hover:bg-on-error/20 text-on-error font-body-lg text-body-lg py-sm px-md rounded-xl border border-on-error/30 flex items-center justify-between transition-colors">
+                    Chest Pain
+                    <span class="material-symbols-outlined">add_circle</span>
+</button>
+<button class="bg-on-error/10 hover:bg-on-error/20 text-on-error font-body-lg text-body-lg py-sm px-md rounded-xl border border-on-error/30 flex items-center justify-between transition-colors">
+                    Breathing Difficulty
+                    <span class="material-symbols-outlined">add_circle</span>
+</button>
+<button class="bg-on-error/10 hover:bg-on-error/20 text-on-error font-body-lg text-body-lg py-sm px-md rounded-xl border border-on-error/30 flex items-center justify-between transition-colors">
+                    Severe Bleeding
+                    <span class="material-symbols-outlined">add_circle</span>
+</button>
+<button class="bg-on-error/10 hover:bg-on-error/20 text-on-error font-body-lg text-body-lg py-sm px-md rounded-xl border border-on-error/30 flex items-center justify-between transition-colors">
+                    Loss of Consciousness
+                    <span class="material-symbols-outlined">add_circle</span>
+</button>
+</div>
+</div>
+<button class="text-on-error/70 font-label-md text-label-md underline hover:text-on-error mt-md">I am safe, go back</button>
+</div>
+</body></html>

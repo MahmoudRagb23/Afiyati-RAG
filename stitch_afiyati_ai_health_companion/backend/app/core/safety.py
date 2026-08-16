@@ -1,0 +1,104 @@
+from __future__ import annotations
+
+import re
+from dataclasses import dataclass
+
+
+EMERGENCY_PATTERNS = {
+    "chest_pain": [r"chest pain", r"ألم (?:شديد )?في الصدر", r"وجع (?:شديد )?في الصدر"],
+    "breathing": [r"can't breathe", r"cannot breathe", r"difficulty breathing", r"ضيق (?:شديد )?في التنفس", r"مش قادر (?:ا)?تنفس"],
+    "consciousness": [r"unconscious", r"loss of consciousness", r"فقد(?:ان)? الوعي", r"مغمى عليه"],
+    "stroke": [
+        r"face droop",
+        r"slurred speech",
+        r"cannot speak clearly",
+        r"one side (?:is |feels )?weak",
+        r"one.side weakness",
+        r"اعوجاج الوجه",
+        r"ثقل الكلام",
+        r"ضعف مفاجئ",
+    ],
+    "bleeding": [r"severe bleeding", r"won't stop bleeding", r"نزيف (?:شديد|لا يتوقف)"],
+    "self_harm": [r"kill myself", r"suicid", r"أنتحر", r"اقتل نفسي"],
+}
+
+MEDICATION_CHANGE_PATTERNS = [
+    r"stop (?:my )?(?:medicine|medication|drug)",
+    r"change (?:my )?dose",
+    r"increase (?:my )?dose",
+    r"decrease (?:my )?dose",
+    r"أوقف (?:الدواء|دوائي)",
+    r"أزيد (?:ال)?جرعة",
+    r"أقلل (?:ال)?جرعة",
+    r"أغير (?:ال)?جرعة",
+    r"\b(?:stop|increase|decrease|change)\b.{0,30}\b(?:metformin|lisinopril|insulin|medicine|medication|drug|dose)\b",
+]
+
+OUT_OF_SCOPE_PATTERNS = [
+    r"legal advice",
+    r"investment advice",
+    r"write (?:malware|a virus)",
+    r"استشارة قانونية",
+    r"استثمار",
+]
+
+
+@dataclass(slots=True)
+class SafetyResult:
+    classification: str
+    matched_rules: list[str]
+    emergency: bool = False
+
+
+def classify_safety(text: str, severity: int | None = None) -> SafetyResult:
+    normalized = " ".join(text.lower().split())
+    emergency_matches: list[str] = []
+    for label, patterns in EMERGENCY_PATTERNS.items():
+        if any(re.search(pattern, normalized, re.IGNORECASE) for pattern in patterns):
+            emergency_matches.append(label)
+    if emergency_matches or (severity is not None and severity >= 9):
+        return SafetyResult("POSSIBLE_EMERGENCY", emergency_matches or ["severity_9_or_10"], True)
+    medication = [pattern for pattern in MEDICATION_CHANGE_PATTERNS if re.search(pattern, normalized, re.IGNORECASE)]
+    if medication:
+        return SafetyResult("CAUTION", ["medication_change_request"])
+    if any(re.search(pattern, normalized, re.IGNORECASE) for pattern in OUT_OF_SCOPE_PATTERNS):
+        return SafetyResult("OUT_OF_SCOPE", ["non_medical_scope"])
+    return SafetyResult("ALLOWED", [])
+
+
+def emergency_response() -> dict:
+    return {
+        "summary": "قد تكون هذه الأعراض حالة طارئة. اتصل بخدمات الطوارئ المحلية الآن، ولا تنتظر رد المحادثة.",
+        "recommendation_status": "not_recommended",
+        "conditions_considered": [],
+        "suggested_quantity": None,
+        "warnings": [
+            "إذا كنت في مصر فاتصل بالإسعاف على 123، أو استخدم رقم الطوارئ المحلي في بلدك.",
+            "لا تقد السيارة بنفسك. اطلب من شخص قريب البقاء معك إن أمكن.",
+        ],
+        "evidence_strength": "insufficient",
+        "citations": [],
+        "needs_professional_attention": True,
+        "emergency": True,
+        "safety_classification": "POSSIBLE_EMERGENCY",
+        "evidence": [],
+    }
+
+
+def insufficient_evidence_response(conditions: list[str] | None = None) -> dict:
+    return {
+        "summary": "لا توجد معلومات موثوقة كافية في المصادر المتاحة لإعطاء توصية آمنة حول هذا السؤال.",
+        "recommendation_status": "insufficient_evidence",
+        "conditions_considered": [
+            {"condition": condition, "assessment": "لم تتوفر أدلة مسترجعة كافية لهذه الحالة."}
+            for condition in (conditions or [])
+        ],
+        "suggested_quantity": None,
+        "warnings": ["أعد صياغة السؤال أو استشر طبيبك أو الصيدلي للحصول على نصيحة شخصية."],
+        "evidence_strength": "insufficient",
+        "citations": [],
+        "needs_professional_attention": False,
+        "emergency": False,
+        "safety_classification": "ALLOWED",
+        "evidence": [],
+    }

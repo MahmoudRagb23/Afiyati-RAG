@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+<html class="light" dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>عافيتي - Meal Analysis</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-secondary-container": "#006f6a",
+                        "on-background": "#181c1d",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#884a1a",
+                        "secondary": "#006a66",
+                        "surface-container-high": "#e5e9e9",
+                        "inverse-primary": "#79d4e2",
+                        "primary-fixed": "#95f1ff",
+                        "primary-fixed-dim": "#79d4e2",
+                        "secondary-fixed-dim": "#69d8d1",
+                        "tertiary-fixed": "#ffdcc7",
+                        "on-surface": "#181c1d",
+                        "inverse-on-surface": "#eef1f2",
+                        "outline": "#6e797b",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed-variant": "#00504d",
+                        "surface-variant": "#dfe3e4",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-container": "#effdff",
+                        "tertiary-fixed-dim": "#ffb786",
+                        "background": "#f6fafb",
+                        "error-container": "#ffdad6",
+                        "primary": "#00646f",
+                        "inverse-surface": "#2d3132",
+                        "surface-container": "#ebeeef",
+                        "on-primary-fixed": "#001f24",
+                        "primary-container": "#087f8c",
+                        "secondary-fixed": "#87f4ee",
+                        "on-tertiary-fixed-variant": "#703706",
+                        "surface": "#f6fafb",
+                        "surface-tint": "#006874",
+                        "on-primary-fixed-variant": "#004f57",
+                        "surface-bright": "#f6fafb",
+                        "surface-container-low": "#f1f4f5",
+                        "on-tertiary-fixed": "#311300",
+                        "on-surface-variant": "#3e494a",
+                        "surface-container-highest": "#dfe3e4",
+                        "outline-variant": "#bdc9ca",
+                        "tertiary-container": "#a66230",
+                        "surface-dim": "#d7dbdb",
+                        "secondary-container": "#84f2eb",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed": "#00201e",
+                        "on-tertiary-container": "#fff8f6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "64px",
+                        "xs": "4px",
+                        "margin-desktop": "80px",
+                        "sm": "12px",
+                        "md": "24px",
+                        "gutter": "20px",
+                        "base": "8px",
+                        "lg": "48px",
+                        "margin-mobile": "20px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Be Vietnam Pro"],
+                        "headline-xl-mobile": ["Be Vietnam Pro"],
+                        "headline-md": ["Be Vietnam Pro"],
+                        "headline-lg": ["Be Vietnam Pro"],
+                        "caption": ["Be Vietnam Pro"],
+                        "body-md": ["Be Vietnam Pro"],
+                        "body-lg": ["Be Vietnam Pro"],
+                        "headline-xl": ["Be Vietnam Pro"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "headline-xl-mobile": ["30px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "42px", "fontWeight": "600" }],
+                        "caption": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-xl": ["40px", { "lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col md:flex-row">
+<!-- SideNavBar (Hidden on Mobile) -->
+<nav class="hidden md:flex flex-col bg-surface-container-low w-64 h-screen fixed top-0 right-0 p-4 z-40 border-l border-outline-variant/30">
+<div class="mb-8 px-2 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-lg">ع</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">عافيتي</h1>
+<p class="font-caption text-caption text-on-surface-variant">Health Monitor</p>
+</div>
+</div>
+<div class="flex-1 space-y-2 overflow-y-auto">
+<a class="flex items-center gap-sm text-on-surface-variant p-3 hover:bg-surface-container-high rounded-xl transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">home</span>
+                Home
+            </a>
+<a class="flex items-center gap-sm text-on-surface-variant p-3 hover:bg-surface-container-high rounded-xl transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+                Ask AI
+            </a>
+<a class="flex items-center gap-sm bg-secondary-container text-on-secondary-container rounded-xl p-3 transform transition-transform font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-weight="fill">restaurant</span>
+                Meal Analysis
+            </a>
+<a class="flex items-center gap-sm text-on-surface-variant p-3 hover:bg-surface-container-high rounded-xl transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">monitor_heart</span>
+                Habits
+            </a>
+<a class="flex items-center gap-sm text-on-surface-variant p-3 hover:bg-surface-container-high rounded-xl transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">medical_services</span>
+                Symptoms
+            </a>
+<a class="flex items-center gap-sm text-on-surface-variant p-3 hover:bg-surface-container-high rounded-xl transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">history</span>
+                History
+            </a>
+<a class="flex items-center gap-sm text-on-surface-variant p-3 hover:bg-surface-container-high rounded-xl transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">person</span>
+                Health Profile
+            </a>
+<a class="flex items-center gap-sm text-on-surface-variant p-3 hover:bg-surface-container-high rounded-xl transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">library_books</span>
+                Sources
+            </a>
+</div>
+<div class="mt-auto space-y-2 pt-4 border-t border-outline-variant/30">
+<button class="w-full flex items-center justify-center gap-2 bg-error text-on-error py-2 rounded-lg font-label-md text-label-md font-bold hover:bg-error/90 transition-colors">
+<span class="material-symbols-outlined">warning</span>
+                EMERGENCY
+            </button>
+<a class="flex items-center gap-sm text-on-surface-variant p-3 hover:bg-surface-container-high rounded-xl transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+<a class="flex items-center gap-sm text-on-surface-variant p-3 hover:bg-surface-container-high rounded-xl transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined">help</span>
+                Help
+            </a>
+</div>
+</nav>
+<!-- TopNavBar (Hidden on Desktop) -->
+<header class="md:hidden flex justify-between items-center w-full px-margin-mobile py-4 bg-surface-container-lowest shadow-sm z-30 sticky top-0">
+<h1 class="text-headline-md font-headline-md font-bold text-primary">عافيتي</h1>
+<div class="flex gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:mr-64 p-margin-mobile md:p-margin-desktop bg-surface max-w-7xl mx-auto w-full">
+<div class="mb-8">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">تحليل الوجبة</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">قم بتحميل صورة لوجبتك للحصول على تحليل طبي مفصل.</p>
+</div>
+<!-- Bento Grid Layout for Stages -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Stage 1 & 2: Image & Ingredients (Left/Top) -->
+<div class="lg:col-span-5 space-y-gutter">
+<!-- Image Upload / Display Card -->
+<div class="bg-surface-container-lowest rounded-[24px] shadow-[0_4px_20px_rgba(16,50,56,0.05)] p-6 relative overflow-hidden">
+<div class="absolute top-4 left-4 bg-primary-container/10 text-primary-container px-3 py-1 rounded-full font-label-md text-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">photo_camera</span>
+                        صورة الوجبة
+                    </div>
+<div class="mt-8 rounded-xl overflow-hidden aspect-video relative group cursor-pointer border-2 border-dashed border-outline-variant hover:border-primary transition-colors">
+<img class="w-full h-full object-cover" data-alt="A top-down photograph of a healthy, balanced meal featuring a portion of grilled chicken breast, a side of steamed white rice, and a vibrant green salad with cherry tomatoes and cucumber slices. The food is presented on a clean white ceramic plate, resting on a light oak wooden table. The lighting is bright, natural daylight streaming from a nearby window, creating soft shadows and highlighting the fresh textures of the food. The overall aesthetic is clean, modern, and appetizing, fitting a professional health app." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCix9g3KJkeNFZsn6-JwnM7ZCesCnFl4iFVcYwD1qWooYBfWgAkieGxGeHn3lnmAzCk11hh9qKZGXMGSaA_N4n3BVVqHZnrpAwHRU4QB_XCF9JPHX7rnY1mMlyDnkh3BnqnjyvC0MEPPo-YINVM-Y9kFNqB9PkLXTkhl5i8XIAjo-8uRQDTMmMAy_kRiw1F-V19hxT73zJbknLW5TR_lElPiHbAnnjKcJgzRjuCHOiC1VLGVnAqgHM"/>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity">
+<span class="material-symbols-outlined text-white text-4xl">edit</span>
+</div>
+</div>
+</div>
+<!-- Detected Ingredients Card -->
+<div class="bg-surface-container-lowest rounded-[24px] shadow-[0_4px_20px_rgba(16,50,56,0.05)] p-6">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">fact_check</span>
+                            المكونات المكتشفة
+                        </h3>
+<button class="text-primary font-label-md text-label-md hover:underline flex items-center gap-1">
+                            تعديل
+                            <span class="material-symbols-outlined text-sm">edit</span>
+</button>
+</div>
+<ul class="space-y-3">
+<li class="flex justify-between items-center bg-surface-container-low p-3 rounded-lg border border-outline-variant/30">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary">set_meal</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">دجاج مشوي</p>
+<p class="font-caption text-caption text-on-surface-variant">صدر دجاج، 150 جرام</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-success cursor-pointer">check_circle</span>
+</li>
+<li class="flex justify-between items-center bg-surface-container-low p-3 rounded-lg border border-outline-variant/30">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-tertiary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary">rice_bowl</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">أرز أبيض</p>
+<p class="font-caption text-caption text-on-surface-variant">مطبوخ، 1 كوب</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-success cursor-pointer">check_circle</span>
+</li>
+<li class="flex justify-between items-center bg-surface-container-low p-3 rounded-lg border border-outline-variant/30">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-success/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-green-700">eco</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">سلطة خضراء</p>
+<p class="font-caption text-caption text-on-surface-variant">طماطم، خيار، خس</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-success cursor-pointer">check_circle</span>
+</li>
+</ul>
+<button class="w-full mt-6 bg-primary-container text-on-primary-container py-3 rounded-xl font-label-md text-label-md font-bold hover:bg-primary transition-colors flex items-center justify-center gap-2 shadow-sm">
+                        تأكيد المكونات وتحليل
+                        <span class="material-symbols-outlined">analytics</span>
+</button>
+</div>
+</div>
+<!-- Stage 3: Medical Analysis (Right/Bottom) -->
+<div class="lg:col-span-7">
+<div class="bg-surface-container-lowest rounded-[24px] shadow-[0_4px_20px_rgba(16,50,56,0.05)] p-6 h-full flex flex-col relative">
+<!-- Overall Status -->
+<div class="flex justify-between items-start mb-6 pb-6 border-b border-outline-variant/30">
+<div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface mb-1">التحليل الطبي</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">تأثير الوجبة بناءً على ملفك الصحي</p>
+</div>
+<!-- Recommendation Chip (Orange/Warning example for Rice impact on Diabetes) -->
+<div class="bg-[#FFEDD5] text-[#9A3412] px-4 py-2 rounded-full font-label-md text-label-md flex items-center gap-2 border border-[#FDBA74]">
+<span class="material-symbols-outlined text-[18px]">warning</span>
+                            ينصح بالاعتدال
+                        </div>
+</div>
+<!-- Impact Grids -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+<!-- Diabetes Impact -->
+<div class="bg-surface-container p-4 rounded-xl relative overflow-hidden">
+<div class="absolute -right-4 -top-4 opacity-5">
+<span class="material-symbols-outlined text-[100px]">blood_pressure</span>
+</div>
+<div class="flex items-center gap-2 mb-2 relative z-10">
+<span class="material-symbols-outlined text-tertiary">glucose</span>
+<h4 class="font-label-md text-label-md font-bold text-on-surface">السكري (النوع 2)</h4>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant relative z-10 mb-3">
+                                الأرز الأبيض ذو مؤشر جلايسيمي مرتفع، مما قد يسبب ارتفاعاً سريعاً في نسبة السكر في الدم.
+                            </p>
+<!-- Portion consideration -->
+<div class="bg-surface-container-lowest/80 p-2 rounded flex items-start gap-2 relative z-10">
+<span class="material-symbols-outlined text-secondary text-sm mt-1">info</span>
+<p class="font-caption text-caption text-on-surface-variant">الكمية المقترحة: تقليل الأرز إلى نصف كوب وزيادة السلطة.</p>
+</div>
+</div>
+<!-- Hypertension Impact -->
+<div class="bg-surface-container p-4 rounded-xl relative overflow-hidden">
+<div class="absolute -right-4 -top-4 opacity-5">
+<span class="material-symbols-outlined text-[100px]">favorite</span>
+</div>
+<div class="flex items-center gap-2 mb-2 relative z-10">
+<span class="material-symbols-outlined text-primary">monitor_heart</span>
+<h4 class="font-label-md text-label-md font-bold text-on-surface">ارتفاع ضغط الدم</h4>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant relative z-10 mb-3">
+                                الدجاج المشوي والسلطة خيارات ممتازة. تأثير إيجابي عام.
+                            </p>
+<!-- Portion consideration -->
+<div class="bg-surface-container-lowest/80 p-2 rounded flex items-start gap-2 relative z-10">
+<span class="material-symbols-outlined text-secondary text-sm mt-1">info</span>
+<p class="font-caption text-caption text-on-surface-variant">تأكد من عدم إضافة ملح زائد أو صلصات غنية بالصوديوم للسلطة.</p>
+</div>
+</div>
+</div>
+<!-- Macronutrients Progress (Soft Visuals) -->
+<div class="mb-8 space-y-4">
+<h4 class="font-label-md text-label-md font-bold text-on-surface">التركيب الغذائي التقريبي</h4>
+<div>
+<div class="flex justify-between text-caption font-caption text-on-surface-variant mb-1">
+<span>البروتين</span>
+<span>45g</span>
+</div>
+<div class="w-full bg-surface-variant rounded-full h-2.5">
+<div class="bg-primary-container h-2.5 rounded-full" style="width: 40%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-caption font-caption text-on-surface-variant mb-1">
+<span>الكربوهيدرات</span>
+<span>55g</span>
+</div>
+<div class="w-full bg-surface-variant rounded-full h-2.5">
+<div class="bg-tertiary-container h-2.5 rounded-full" style="width: 50%"></div>
+</div>
+</div>
+</div>
+<!-- Citations / Medical Sources -->
+<div class="mt-auto bg-surface-container-low rounded-xl p-4 flex gap-3 border border-outline-variant/20">
+<span class="material-symbols-outlined text-outline mt-1">local_library</span>
+<div>
+<h5 class="font-label-md text-label-md text-on-surface">المصادر الطبية المرجعية</h5>
+<p class="font-caption text-caption text-on-surface-variant mt-1">
+                                تم الاعتماد في هذا التحليل على إرشادات الجمعية الأمريكية للسكري (ADA) والجمعية الأمريكية للقلب (AHA) لعام 2023.
+                            </p>
+<a class="text-primary font-caption text-caption hover:underline inline-flex items-center gap-1 mt-2" href="#">
+                                عرض التفاصيل
+                                <span class="material-symbols-outlined text-[14px]">open_in_new</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

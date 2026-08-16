@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Medications - Afiyati</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "on-secondary-container": "#006f6a",
+                "tertiary-fixed": "#ffdcc7",
+                "secondary-container": "#84f2eb",
+                "on-secondary-fixed": "#00201e",
+                "on-surface-variant": "#3e494a",
+                "surface-container-low": "#f1f4f5",
+                "surface": "#f6fafb",
+                "surface-container-high": "#e5e9e9",
+                "primary-fixed-dim": "#79d4e2",
+                "tertiary-container": "#a66230",
+                "inverse-primary": "#79d4e2",
+                "on-error": "#ffffff",
+                "surface-variant": "#dfe3e4",
+                "tertiary": "#884a1a",
+                "surface-container": "#ebeeef",
+                "on-tertiary-container": "#fff8f6",
+                "inverse-surface": "#2d3132",
+                "surface-container-lowest": "#ffffff",
+                "error-container": "#ffdad6",
+                "on-secondary": "#ffffff",
+                "surface-dim": "#d7dbdb",
+                "surface-bright": "#f6fafb",
+                "on-secondary-fixed-variant": "#00504d",
+                "surface-tint": "#006874",
+                "primary-container": "#087f8c",
+                "on-tertiary-fixed-variant": "#703706",
+                "inverse-on-surface": "#eef1f2",
+                "on-surface": "#181c1d",
+                "tertiary-fixed-dim": "#ffb786",
+                "secondary-fixed": "#87f4ee",
+                "on-primary-fixed": "#001f24",
+                "on-background": "#181c1d",
+                "on-primary": "#ffffff",
+                "outline": "#6e797b",
+                "surface-container-highest": "#dfe3e4",
+                "outline-variant": "#bdc9ca",
+                "on-primary-fixed-variant": "#004f57",
+                "on-primary-container": "#effdff",
+                "background": "#f6fafb",
+                "on-tertiary-fixed": "#311300",
+                "secondary": "#006a66",
+                "on-error-container": "#93000a",
+                "primary-fixed": "#95f1ff",
+                "secondary-fixed-dim": "#69d8d1",
+                "primary": "#00646f",
+                "on-tertiary": "#ffffff",
+                "error": "#ba1a1a"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "xs": "4px",
+                "base": "8px",
+                "margin-desktop": "80px",
+                "xl": "64px",
+                "gutter": "20px",
+                "lg": "48px",
+                "margin-mobile": "20px",
+                "sm": "12px",
+                "md": "24px"
+        },
+        "fontFamily": {
+                "caption": [
+                        "beVietnamPro"
+                ],
+                "headline-xl": [
+                        "beVietnamPro"
+                ],
+                "body-md": [
+                        "beVietnamPro"
+                ],
+                "headline-xl-mobile": [
+                        "beVietnamPro"
+                ],
+                "headline-md": [
+                        "beVietnamPro"
+                ],
+                "label-md": [
+                        "beVietnamPro"
+                ],
+                "headline-lg": [
+                        "beVietnamPro"
+                ],
+                "body-lg": [
+                        "beVietnamPro"
+                ]
+        },
+        "fontSize": {
+                "caption": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-xl": [
+                        "40px",
+                        {
+                                "lineHeight": "52px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-xl-mobile": [
+                        "30px",
+                        {
+                                "lineHeight": "40px",
+                                "fontWeight": "700"
+                        }
+                ],
+                "headline-md": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "label-md": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "letterSpacing": "0.01em",
+                                "fontWeight": "500"
+                        }
+                ],
+                "headline-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "42px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "400"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+        /* Ambient Background */
+        body {
+            background-color: #F5FBFA;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        /* Soft Drop Shadows */
+        .card-shadow {
+            box-shadow: 0 4px 20px rgba(16, 50, 56, 0.05);
+        }
+        
+        /* Smooth transitions */
+        .transition-all {
+            transition-property: all;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 300ms;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface h-screen flex overflow-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar (Mobile Only) -->
+<nav class="md:hidden flex justify-between items-center w-full px-margin-mobile py-4 bg-surface-container-lowest shadow-sm fixed top-0 z-50">
+<div class="font-headline-md text-headline-md font-bold text-primary">عافيتي</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary" data-icon="language">language</span>
+</div>
+</nav>
+<!-- SideNavBar (Desktop) -->
+<aside aria-label="Sidebar" class="hidden md:flex flex-col fixed left-0 top-0 h-full w-64 p-4 z-40 bg-surface-container-low">
+<!-- Header -->
+<div class="flex items-center gap-3 mb-8 px-3">
+<div class="w-12 h-12 rounded-full overflow-hidden shrink-0 border-2 border-primary-container">
+<img alt="User profile photo" class="w-full h-full object-cover" data-alt="A professional headshot of a middle-aged Arab man with a warm smile, wearing a casual but neat collared shirt. He has short dark hair and a neatly trimmed beard. The background is a soft, out-of-focus modern clinic setting with plenty of natural light. High-key lighting, bright and approachable aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGqqR0tklfkN2v6NssQB71wFhB_WlXZ42bQJpTsGa4-OE0hxvY7KyxNk7SYZizvepojenhtCJ0USn1ryv-DdRZSS3HPoxBrKL8QmdV87ansohwUCqYd50IfL1Awe8zYNbcJM-HOGMzrPfLB6HHyys_x8kDce-uPeABqs7zbBATL7ZlLJiSl_auIL_PBFmGblLCTBDwG163EtlsQoj-wesLS-bjA1a5oGeSiA9ICB0I5CKF3NXFSnHA"/>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary leading-tight">عافيتي</h1>
+<p class="font-label-md text-label-md text-on-surface-variant">Health Monitor</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-sm text-on-surface-variant p-3 hover:bg-surface-container-high rounded-xl transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+                Home
+            </a>
+<a class="flex items-center gap-sm text-on-surface-variant p-3 hover:bg-surface-container-high rounded-xl transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+                Ask AI
+            </a>
+<a class="flex items-center gap-sm text-on-surface-variant p-3 hover:bg-surface-container-high rounded-xl transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="restaurant">restaurant</span>
+                Meal Analysis
+            </a>
+<a class="flex items-center gap-sm text-on-surface-variant p-3 hover:bg-surface-container-high rounded-xl transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="monitor_heart">monitor_heart</span>
+                Habits
+            </a>
+<a class="flex items-center gap-sm flex items-center gap-sm bg-secondary-container text-on-secondary-container rounded-xl p-3 font-label-md text-label-md scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="medical_services">medical_services</span>
+                Symptoms <!-- Highlighted due to context of Medications, although label is Symptoms in JSON, it's the closest medical match -->
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant p-3 hover:bg-surface-container-high rounded-xl transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+                History
+            </a>
+<a class="flex items-center gap-sm text-on-surface-variant p-3 hover:bg-surface-container-high rounded-xl transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+                Health Profile
+            </a>
+<a class="flex items-center gap-sm text-on-surface-variant p-3 hover:bg-surface-container-high rounded-xl transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="library_books">library_books</span>
+                Sources
+            </a>
+</nav>
+<!-- CTA & Footer Actions -->
+<div class="mt-auto space-y-4 pt-4">
+<button class="w-full bg-error text-on-error font-label-md text-label-md py-3 rounded-xl hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="emergency">emergency</span>
+                EMERGENCY
+            </button>
+<div class="space-y-1">
+<a class="flex items-center gap-sm text-on-surface-variant p-3 hover:bg-surface-container-high rounded-xl transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                    Settings
+                </a>
+<a class="flex items-center gap-sm text-on-surface-variant p-3 hover:bg-surface-container-high rounded-xl transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+                    Help
+                </a>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-0 md:ml-64 mr-0 pt-20 md:pt-8 px-margin-mobile md:px-margin-desktop overflow-y-auto h-full pb-32 md:pb-8">
+<!-- Header Area -->
+<div class="max-w-7xl mx-auto mb-8 flex justify-between items-end">
+<div>
+<h2 class="font-headline-xl text-headline-xl-mobile md:text-headline-xl text-primary font-bold tracking-tight">أدويتي وجدولي العلاجي</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-2 max-w-2xl">Manage your daily medications and track your adherence.</p>
+</div>
+</div>
+<!-- Two Column Layout Grid -->
+<div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Medication Schedule (Timeline) -->
+<div class="lg:col-span-7 space-y-6">
+<section class="bg-surface-container-lowest rounded-[24px] card-shadow p-6 md:p-8 relative overflow-hidden">
+<!-- Subtle background decoration -->
+<div class="absolute top-0 left-0 w-64 h-64 bg-primary-container opacity-5 rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+<div class="flex items-center justify-between mb-8">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary bg-primary-container/10 p-2 rounded-lg" data-icon="calendar_clock">calendar_clock</span>
+<h3 class="font-headline-md text-headline-md text-on-surface font-semibold">جدول المواعيد</h3>
+</div>
+<div class="font-label-md text-label-md text-primary-container bg-primary-container/10 px-3 py-1 rounded-full">Today</div>
+</div>
+<!-- Timeline -->
+<div class="space-y-6 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-outline-variant before:to-transparent pr-4 md:pr-0">
+<!-- Timeline Item 1: Taken -->
+<div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+<!-- Icon -->
+<div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-surface-container-lowest bg-secondary shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-sm z-10 mr-4 md:mr-0">
+<span class="material-symbols-outlined text-on-secondary text-sm" data-icon="check">check</span>
+</div>
+<!-- Card -->
+<div class="w-full md:w-[calc(50%-2.5rem)] bg-surface-container-low p-4 rounded-xl border border-outline-variant/30 opacity-70">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-md text-label-md text-on-surface-variant font-medium">08:00 AM</span>
+<span class="font-caption text-caption text-secondary bg-secondary/10 px-2 py-0.5 rounded-sm">Taken</span>
+</div>
+<h4 class="font-body-md text-body-md text-on-surface font-semibold">Metformin</h4>
+<p class="font-caption text-caption text-on-surface-variant">500mg - After breakfast</p>
+</div>
+</div>
+<!-- Timeline Item 2: Upcoming (Current Actionable) -->
+<div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+<!-- Icon -->
+<div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-surface-container-lowest bg-surface-container-highest text-on-surface-variant shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow-sm z-10 mr-4 md:mr-0">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+</div>
+<!-- Card -->
+<div class="w-full md:w-[calc(50%-2.5rem)] bg-surface-container-lowest p-5 rounded-2xl border-l-4 border-l-primary card-shadow relative">
+<!-- Ping animation for active item -->
+<span class="flex absolute h-3 w-3 top-0 right-0 -mt-1 -mr-1">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+</span>
+<div class="flex justify-between items-start mb-3">
+<span class="font-label-md text-label-md text-primary font-bold">02:00 PM</span>
+<span class="font-caption text-caption text-tertiary-container bg-tertiary-container/10 px-2 py-0.5 rounded-sm font-medium">Upcoming</span>
+</div>
+<h4 class="font-body-lg text-body-lg text-on-surface font-semibold">Lisinopril</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">10mg - With or without food</p>
+<div class="flex gap-2">
+<button class="flex-1 bg-[#087F8C] text-white font-label-md text-label-md py-2 px-3 rounded-lg hover:bg-primary transition-colors flex items-center justify-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-sm" data-icon="done">done</span>
+                                        تم أخذ الجرعة
+                                    </button>
+<button class="flex-1 border border-[#3AAFA9] text-[#006f6a] font-label-md text-label-md py-2 px-3 rounded-lg hover:bg-secondary-container/10 transition-colors flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="skip_next">skip_next</span>
+                                        تخطي
+                                    </button>
+</div>
+</div>
+</div>
+<!-- Timeline Item 3: Future -->
+<div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+<!-- Icon -->
+<div class="flex items-center justify-center w-10 h-10 rounded-full border-4 border-surface-container-lowest bg-surface-container text-outline shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10 mr-4 md:mr-0">
+<span class="material-symbols-outlined text-sm" data-icon="bedtime">bedtime</span>
+</div>
+<!-- Card -->
+<div class="w-full md:w-[calc(50%-2.5rem)] bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/20 shadow-sm">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-md text-label-md text-on-surface-variant">09:00 PM</span>
+</div>
+<h4 class="font-body-md text-body-md text-on-surface font-medium">Atorvastatin</h4>
+<p class="font-caption text-caption text-on-surface-variant">20mg - Before bed</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Management & Stats -->
+<div class="lg:col-span-5 space-y-6">
+<!-- Action: Add New -->
+<button class="w-full bg-[#087F8C] text-white font-headline-md text-body-lg font-semibold py-4 rounded-[16px] hover:bg-primary transition-colors flex items-center justify-center gap-2 shadow-sm card-shadow group">
+<span class="material-symbols-outlined group-hover:rotate-90 transition-transform duration-300" data-icon="add_circle">add_circle</span>
+                    إضافة دواء جديد
+                </button>
+<!-- Active Medications List -->
+<section class="bg-surface-container-lowest rounded-[24px] card-shadow p-6">
+<div class="flex items-center justify-between border-b border-surface-container-high pb-4 mb-4">
+<h3 class="font-headline-md text-headline-md text-on-surface font-semibold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="prescriptions">prescriptions</span>
+                            الأدوية النشطة
+                        </h3>
+</div>
+<div class="space-y-4">
+<!-- Med 1 -->
+<div class="flex items-start justify-between p-3 hover:bg-surface-container-low rounded-xl transition-colors cursor-pointer border border-transparent hover:border-outline-variant/30">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container/10 flex items-center justify-center text-primary-container shrink-0 mt-1">
+<span class="material-symbols-outlined" data-icon="pill">pill</span>
+</div>
+<div>
+<h4 class="font-body-lg text-body-lg text-on-surface font-medium">Metformin</h4>
+<p class="font-caption text-caption text-on-surface-variant mt-1">500mg • Twice daily</p>
+</div>
+</div>
+<span class="font-caption text-caption text-secondary bg-secondary/10 px-2 py-1 rounded-md font-medium shrink-0">دائم</span>
+</div>
+<!-- Med 2 -->
+<div class="flex items-start justify-between p-3 hover:bg-surface-container-low rounded-xl transition-colors cursor-pointer border border-transparent hover:border-outline-variant/30">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container/10 flex items-center justify-center text-primary-container shrink-0 mt-1">
+<span class="material-symbols-outlined" data-icon="pill">pill</span>
+</div>
+<div>
+<h4 class="font-body-lg text-body-lg text-on-surface font-medium">Lisinopril</h4>
+<p class="font-caption text-caption text-on-surface-variant mt-1">10mg • Once daily</p>
+</div>
+</div>
+<span class="font-caption text-caption text-secondary bg-secondary/10 px-2 py-1 rounded-md font-medium shrink-0">دائم</span>
+</div>
+<!-- Med 3 -->
+<div class="flex items-start justify-between p-3 hover:bg-surface-container-low rounded-xl transition-colors cursor-pointer border border-transparent hover:border-outline-variant/30">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-full bg-tertiary-container/10 flex items-center justify-center text-tertiary-container shrink-0 mt-1">
+<span class="material-symbols-outlined" data-icon="medication_liquid">medication_liquid</span>
+</div>
+<div>
+<h4 class="font-body-lg text-body-lg text-on-surface font-medium">Amoxicillin</h4>
+<p class="font-caption text-caption text-on-surface-variant mt-1">250mg • Every 8 hours</p>
+</div>
+</div>
+<span class="font-caption text-caption text-tertiary-container bg-tertiary-container/10 px-2 py-1 rounded-md font-medium shrink-0">مؤقت</span>
+</div>
+</div>
+<button class="w-full mt-4 py-2 font-label-md text-label-md text-primary hover:bg-surface-container-high rounded-lg transition-colors">View All Medications</button>
+</section>
+<!-- Adherence History -->
+<section class="bg-surface-container-lowest rounded-[24px] card-shadow p-6">
+<h3 class="font-headline-md text-headline-md text-on-surface font-semibold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="trending_up">trending_up</span>
+                        سجل الالتزام
+                    </h3>
+<div class="flex flex-col items-center">
+<div class="text-center mb-6">
+<span class="font-headline-xl text-headline-xl-mobile text-primary block leading-none">95%</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Adherence this week</span>
+</div>
+<!-- 7 Day Streak Mini Calendar -->
+<div class="flex justify-between w-full gap-1">
+<!-- Days -->
+<div class="flex flex-col items-center gap-2">
+<span class="font-caption text-caption text-on-surface-variant">S</span>
+<div class="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-on-secondary shadow-sm">
+<span class="material-symbols-outlined text-sm" data-icon="done">done</span>
+</div>
+</div>
+<div class="flex flex-col items-center gap-2">
+<span class="font-caption text-caption text-on-surface-variant">M</span>
+<div class="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-on-secondary shadow-sm">
+<span class="material-symbols-outlined text-sm" data-icon="done">done</span>
+</div>
+</div>
+<div class="flex flex-col items-center gap-2">
+<span class="font-caption text-caption text-on-surface-variant">T</span>
+<div class="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-on-secondary shadow-sm">
+<span class="material-symbols-outlined text-sm" data-icon="done">done</span>
+</div>
+</div>
+<div class="flex flex-col items-center gap-2">
+<span class="font-caption text-caption text-on-surface-variant">W</span>
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-sm" data-icon="close">close</span>
+</div>
+</div>
+<div class="flex flex-col items-center gap-2">
+<span class="font-caption text-caption text-on-surface-variant">T</span>
+<div class="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-on-secondary shadow-sm">
+<span class="material-symbols-outlined text-sm" data-icon="done">done</span>
+</div>
+</div>
+<div class="flex flex-col items-center gap-2">
+<span class="font-caption text-caption text-on-surface-variant">F</span>
+<div class="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-on-secondary shadow-sm">
+<span class="material-symbols-outlined text-sm" data-icon="done">done</span>
+</div>
+</div>
+<div class="flex flex-col items-center gap-2 opacity-50">
+<span class="font-caption text-caption text-on-surface-variant">S</span>
+<div class="w-8 h-8 rounded-full border-2 border-outline-variant border-dashed flex items-center justify-center text-outline-variant">
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- Footer Disclaimer (Sticky to bottom of main scroll area if needed, but placed static here) -->
+<footer class="fixed bottom-0 left-0 w-full md:w-[calc(100%-16rem)] md:left-auto md:right-0 bg-surface-container py-3 px-margin-mobile md:px-margin-desktop z-30 border-t border-surface-container-high pb-20 md:pb-3">
+<div class="max-w-7xl mx-auto flex items-start gap-3">
+<span class="material-symbols-outlined text-error shrink-0 mt-0.5" data-icon="info">info</span>
+<p class="font-caption text-caption text-on-surface-variant max-w-3xl">
+<strong>Safety Notice:</strong> Afiyati AI assists with tracking and reminders only. The system never adjusts medication doses autonomously. Any changes to your medication schedule or dosages require direct consultation with your healthcare provider.
+            </p>
+</div>
+</footer>
+<!-- BottomNavBar (Mobile Only) - Using Footer JSON structure as placeholder if needed, but per instructions using nav bar logic -->
+<!-- Assuming a standard bottom nav for mobile health apps -->
+<!-- <div class="md:hidden fixed bottom-0 left-0 right-0 bg-surface-container-lowest border-t border-outline-variant z-50"> -->
+<!-- Navigation implementation would go here if required by full app shell, omitted to focus on canvas as requested by layout priority, though typical for mobile. Assuming the fixed footer above serves the immediate structural need, keeping it simple. -->
+<!-- </div> -->
+</body></html>

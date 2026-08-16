@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>عافيتي - إعداد الملف الصحي</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-lowest": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-secondary-container": "#006f6a",
+                    "on-background": "#181c1d",
+                    "on-error-container": "#93000a",
+                    "tertiary": "#884a1a",
+                    "secondary": "#006a66",
+                    "surface-container-high": "#e5e9e9",
+                    "inverse-primary": "#79d4e2",
+                    "primary-fixed": "#95f1ff",
+                    "primary-fixed-dim": "#79d4e2",
+                    "secondary-fixed-dim": "#69d8d1",
+                    "tertiary-fixed": "#ffdcc7",
+                    "on-surface": "#181c1d",
+                    "inverse-on-surface": "#eef1f2",
+                    "outline": "#6e797b",
+                    "on-secondary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "on-secondary-fixed-variant": "#00504d",
+                    "surface-variant": "#dfe3e4",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-container": "#effdff",
+                    "tertiary-fixed-dim": "#ffb786",
+                    "background": "#f6fafb",
+                    "error-container": "#ffdad6",
+                    "primary": "#00646f",
+                    "inverse-surface": "#2d3132",
+                    "surface-container": "#ebeeef",
+                    "on-primary-fixed": "#001f24",
+                    "primary-container": "#087f8c",
+                    "secondary-fixed": "#87f4ee",
+                    "on-tertiary-fixed-variant": "#703706",
+                    "surface": "#f6fafb",
+                    "surface-tint": "#006874",
+                    "on-primary-fixed-variant": "#004f57",
+                    "surface-bright": "#f6fafb",
+                    "surface-container-low": "#f1f4f5",
+                    "on-tertiary-fixed": "#311300",
+                    "on-surface-variant": "#3e494a",
+                    "surface-container-highest": "#dfe3e4",
+                    "outline-variant": "#bdc9ca",
+                    "tertiary-container": "#a66230",
+                    "surface-dim": "#d7dbdb",
+                    "secondary-container": "#84f2eb",
+                    "error": "#ba1a1a",
+                    "on-secondary-fixed": "#00201e",
+                    "on-tertiary-container": "#fff8f6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "64px",
+                    "xs": "4px",
+                    "margin-desktop": "80px",
+                    "sm": "12px",
+                    "md": "24px",
+                    "gutter": "20px",
+                    "base": "8px",
+                    "lg": "48px",
+                    "margin-mobile": "20px"
+            },
+            "fontFamily": {
+                    "label-md": ["Be Vietnam Pro", "sans-serif"],
+                    "headline-xl-mobile": ["Be Vietnam Pro", "sans-serif"],
+                    "headline-md": ["Be Vietnam Pro", "sans-serif"],
+                    "headline-lg": ["Be Vietnam Pro", "sans-serif"],
+                    "caption": ["Be Vietnam Pro", "sans-serif"],
+                    "body-md": ["Be Vietnam Pro", "sans-serif"],
+                    "body-lg": ["Be Vietnam Pro", "sans-serif"],
+                    "headline-xl": ["Be Vietnam Pro", "sans-serif"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "headline-xl-mobile": ["30px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "42px", "fontWeight": "600"}],
+                    "caption": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-xl": ["40px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: #F5FBFA;
+        }
+        .soft-shadow {
+            box-shadow: 0 4px 20px rgba(16, 50, 56, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- Main Content Area -->
+<main class="flex-grow flex items-center justify-center p-margin-mobile md:p-margin-desktop">
+<div class="w-full max-w-3xl bg-surface-container-lowest rounded-[24px] soft-shadow p-6 md:p-10 relative overflow-hidden">
+<!-- Header & Progress -->
+<div class="mb-10 text-center">
+<h1 class="font-headline-lg text-headline-lg text-primary mb-2">إعداد الملف الصحي</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">الخطوة 2 من 4: الحالات المزمنة</p>
+<!-- Progress Bar -->
+<div class="w-full h-2 bg-surface-container mt-6 rounded-full overflow-hidden flex flex-row-reverse">
+<div class="h-full bg-primary-container rounded-full" style="width: 50%;"></div>
+</div>
+</div>
+<!-- Content Area: Step 2 - Chronic Conditions -->
+<div class="space-y-8">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-2">هل تعاني من أي حالات مزمنة؟</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">يرجى تحديد جميع الحالات التي تنطبق عليك للمساعدة في تخصيص تجربتك.</p>
+<!-- Multi-select Cards Grid -->
+<div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+<!-- Selected Card -->
+<div class="border-2 border-primary-container bg-primary-container/10 rounded-xl p-4 cursor-pointer hover:bg-primary-container/20 transition-colors flex flex-col items-center justify-center text-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-4xl" data-icon="monitor_heart" style="font-variation-settings: 'FILL' 1;">monitor_heart</span>
+<span class="font-label-md text-label-md text-primary-container">ارتفاع ضغط الدم</span>
+</div>
+<!-- Unselected Card -->
+<div class="border border-outline-variant bg-surface-container-lowest rounded-xl p-4 cursor-pointer hover:border-primary-container transition-colors flex flex-col items-center justify-center text-center gap-2">
+<span class="material-symbols-outlined text-outline text-4xl" data-icon="bloodtype">bloodtype</span>
+<span class="font-label-md text-label-md text-on-surface">السكري</span>
+</div>
+<!-- Selected Card -->
+<div class="border-2 border-primary-container bg-primary-container/10 rounded-xl p-4 cursor-pointer hover:bg-primary-container/20 transition-colors flex flex-col items-center justify-center text-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-4xl" data-icon="ecg" style="font-variation-settings: 'FILL' 1;">ecg</span>
+<span class="font-label-md text-label-md text-primary-container">أمراض القلب</span>
+</div>
+<!-- Unselected Card -->
+<div class="border border-outline-variant bg-surface-container-lowest rounded-xl p-4 cursor-pointer hover:border-primary-container transition-colors flex flex-col items-center justify-center text-center gap-2">
+<span class="material-symbols-outlined text-outline text-4xl" data-icon="air">air</span>
+<span class="font-label-md text-label-md text-on-surface">الربو</span>
+</div>
+<!-- Unselected Card -->
+<div class="border border-outline-variant bg-surface-container-lowest rounded-xl p-4 cursor-pointer hover:border-primary-container transition-colors flex flex-col items-center justify-center text-center gap-2">
+<span class="material-symbols-outlined text-outline text-4xl" data-icon="kidney">file_copy</span>
+<span class="font-label-md text-label-md text-on-surface">أمراض الكلى</span>
+</div>
+<!-- Unselected Card -->
+<div class="border border-outline-variant bg-surface-container-lowest rounded-xl p-4 cursor-pointer hover:border-primary-container transition-colors flex flex-col items-center justify-center text-center gap-2">
+<span class="material-symbols-outlined text-outline text-4xl" data-icon="add_circle">add_circle</span>
+<span class="font-label-md text-label-md text-on-surface">أخرى</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Navigation Buttons -->
+<div class="mt-12 flex justify-between items-center border-t border-surface-container-high pt-6">
+<button class="px-6 py-3 rounded-[16px] font-label-md text-label-md border border-[#3AAFA9] text-[#3AAFA9] hover:bg-[#3AAFA9]/10 transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined rtl:rotate-180" data-icon="arrow_forward">arrow_forward</span>
+                    السابق
+                </button>
+<button class="px-8 py-3 rounded-[16px] font-label-md text-label-md bg-primary-container text-on-primary hover:opacity-90 transition-opacity flex items-center gap-2">
+                    التالي
+                    <span class="material-symbols-outlined rtl:rotate-180" data-icon="arrow_back">arrow_back</span>
+</button>
+</div>
+</div>
+</main>
+</body></html>
