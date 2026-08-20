@@ -1,0 +1,36 @@
+{
+  "version": "1.0.0",
+  "reviewed_on": "2026-08-18",
+  "sources": [
+    {
+      "id": "nice_ng136_lifestyle",
+      "title": "Hypertension in adults: diagnosis and management (NG136)",
+      "organization": "National Institute for Health and Care Excellence (NICE)",
+      "section": "1.4.2",
+      "url": "https://www.nice.org.uk/guidance/ng136",
+      "use": "Healthy diet and regular exercise can reduce blood pressure."
+    },
+    {
+      "id": "nice_ng28_lifestyle",
+      "title": "Type 2 diabetes in adults: management (NG28)",
+      "organization": "National Institute for Health and Care Excellence (NICE)",
+      "section": "1.3.5 and 1.3.10",
+      "url": "https://www.nice.org.uk/guidance/ng28/chapter/Dietary-advice-and-interventions",
+      "use": "Integrate advice with a personalised diabetes management plan, including physical activity."
+    },
+    {
+      "id": "who_physical_activity",
+      "title": "Physical activity",
+      "organization": "World Health Organization",
+      "section": "Fact sheet",
+      "url": "https://www.who.int/news-room/fact-sheets/detail/physical-activity",
+      "use": "Official public-health guidance on physical activity."
+    }
+  ],
+  "activities": [
+    {"id": "walking", "name_ar": "المشي", "category": "نشاط هوائي", "summary": "نشاط يومي يمكن إدخاله ضمن خطة حركة منتظمة.", "source_ids": ["nice_ng136_lifestyle", "nice_ng28_lifestyle", "who_physical_activity"]},
+    {"id": "moderate_aerobic", "name_ar": "تمارين هوائية معتدلة", "category": "نشاط هوائي", "summary": "تُناقش مدتها وشدتها حسب قدرتك وخطة علاجك.", "source_ids": ["nice_ng136_lifestyle", "nice_ng28_lifestyle", "who_physical_activity"]},
+    {"id": "resistance_training", "name_ar": "تمارين مقاومة", "category": "تقوية", "summary": "تحتاج تدرجاً ومراعاة الحالة الصحية والأدوية.", "source_ids": ["nice_ng28_lifestyle", "who_physical_activity"]},
+    {"id": "stretching", "name_ar": "تمارين مرونة", "category": "مرونة", "summary": "يمكن إدخالها في الروتين، لكن لا تُقدَّم كعلاج مستقل للضغط أو السكر.", "source_ids": ["nice_ng136_lifestyle", "who_physical_activity"]}
+  ]
+}

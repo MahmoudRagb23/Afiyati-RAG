@@ -4,7 +4,7 @@
 
 Afiyati is a runnable Arabic-first local health-guideline RAG product with a
 React interface, FastAPI backend, SQLite persistence, deterministic safety
-controls, an official four-document guideline corpus, hybrid retrieval, grounded
+controls, an official two-document guideline corpus, hybrid retrieval, grounded
 generation, evidence traces, and a live benchmark dashboard.
 
 The product is engineering-complete for local demonstration. Benchmark results
@@ -13,9 +13,8 @@ and claim support.
 
 ## Production corpus and retrieval
 
-- NICE NG136 hypertension, NICE NG28 type 2 diabetes, KDIGO CKD 2024, and GINA
-  2026 are registered with canonical metadata, source URLs, versions, and
-  SHA-256 checksums.
+- NICE NG136 hypertension and NICE NG28 type 2 diabetes are registered with
+  canonical metadata, source URLs, versions, and SHA-256 checksums.
 - PDF parsing preserves exact page attribution.
 - Chunks are page-bounded so a citation cannot silently span onto another page.
 - 2,059 chunks are indexed in BM25 and local Qdrant.

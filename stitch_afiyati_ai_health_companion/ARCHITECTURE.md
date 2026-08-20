@@ -56,7 +56,7 @@ without a benchmark. The generator receives the best five chunks.
 
 ## Generation, citations, and verification
 
-`qwen3:8b` receives the original question, registered conditions, retrieved
+`qwen3:4b` receives the original question, registered conditions, retrieved
 parent evidence, metadata, and explicit safety rules. Ollama JSON-schema output
 is validated with Pydantic. The backend discards model-authored source metadata
 and reconstructs citations exclusively from retrieved chunks. It verifies that
@@ -82,4 +82,3 @@ JSON or Ollama failures fall back safely.
 - No results: no generator call is made.
 - Malformed LLM JSON: Pydantic rejects it and the response is downgraded.
 - Frontend API error: route-local, retryable Arabic error state.
-

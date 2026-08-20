@@ -2,12 +2,12 @@ from __future__ import annotations
 
 import re
 
+from app.core.conditions import supported_conditions
+
 
 CONDITION_TERMS = {
     "hypertension": ["hypertension", "blood pressure", "ضغط", "الضغط"],
     "type_2_diabetes": ["type 2 diabetes", "diabetes", "t2d", "سكري", "السكري"],
-    "chronic_kidney_disease": ["chronic kidney", "ckd", "kidney disease", "الكلى", "كلوي"],
-    "asthma": ["asthma", "ربو", "الربو"],
 }
 
 TOPIC_TERMS = {
@@ -34,7 +34,7 @@ def analyze_query(text: str, profile_conditions: list[str] | None = None, mode: 
         for condition, terms in CONDITION_TERMS.items()
         if any(term in normalized for term in terms)
     ]
-    conditions = list(dict.fromkeys((profile_conditions or []) + mentioned))
+    conditions = supported_conditions([*(profile_conditions or []), *mentioned])
     topic = next(
         (topic for topic, terms in TOPIC_TERMS.items() if any(term in normalized for term in terms)),
         "general_lifestyle",

@@ -6,7 +6,7 @@ from typing import Literal
 from pydantic import BaseModel, ConfigDict, EmailStr, Field, model_validator
 
 
-Condition = Literal["hypertension", "type_2_diabetes", "chronic_kidney_disease", "asthma"]
+Condition = Literal["hypertension", "type_2_diabetes"]
 
 
 class RegisterRequest(BaseModel):
@@ -31,9 +31,9 @@ class ProfileUpdate(BaseModel):
     gender: str | None = None
     height_cm: float | None = Field(default=None, ge=80, le=250)
     weight_kg: float | None = Field(default=None, ge=20, le=400)
-    conditions: list[Condition] = []
-    allergies: list[str] = []
-    dietary_restrictions: list[str] = []
+    conditions: list[Condition] = Field(default_factory=list)
+    allergies: list[str] = Field(default_factory=list)
+    dietary_restrictions: list[str] = Field(default_factory=list)
     notes: str = Field(default="", max_length=2000)
 
 
@@ -68,10 +68,16 @@ class DoseStatusRequest(BaseModel):
     status: Literal["taken", "missed", "skipped"]
 
 
+class FoodQuantity(BaseModel):
+    name: str = Field(min_length=1, max_length=120)
+    amount_g: float = Field(ge=1, le=5000)
+
+
 class ChatRequest(BaseModel):
     question: str = Field(min_length=2, max_length=2000)
     conditions: list[Condition] | None = None
     confirmed_ingredients: list[str] | None = None
+    food_quantities: list[FoodQuantity] | None = Field(default=None, max_length=20)
     mode: Literal["chat", "food", "meal", "habit", "symptom"] = "chat"
 
 
@@ -118,4 +124,3 @@ class SymptomRequest(BaseModel):
     started_at: str | None = None
     severity: int = Field(ge=1, le=10)
     context: str = Field(default="", max_length=1000)
-

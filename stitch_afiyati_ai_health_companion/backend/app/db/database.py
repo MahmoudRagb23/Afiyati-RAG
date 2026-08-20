@@ -1,9 +1,12 @@
 from __future__ import annotations
 
+import json
 import sqlite3
 from contextlib import contextmanager
 from pathlib import Path
 from typing import Iterator
+
+from app.core.conditions import supported_conditions
 
 
 SCHEMA = """
@@ -24,6 +27,7 @@ CREATE TABLE IF NOT EXISTS profiles (
     allergies_json TEXT NOT NULL DEFAULT '[]',
     dietary_restrictions_json TEXT NOT NULL DEFAULT '[]',
     notes TEXT NOT NULL DEFAULT '',
+    onboarding_completed INTEGER NOT NULL DEFAULT 0,
     updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 CREATE TABLE IF NOT EXISTS medications (
@@ -67,9 +71,24 @@ CREATE TABLE IF NOT EXISTS symptoms (
     classification TEXT NOT NULL,
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+CREATE TABLE IF NOT EXISTS food_lookup_cache (
+    query_key TEXT PRIMARY KEY,
+    response_json TEXT NOT NULL,
+    updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE IF NOT EXISTS food_history (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    conversation_id INTEGER REFERENCES conversations(id) ON DELETE SET NULL,
+    question TEXT NOT NULL,
+    mode TEXT NOT NULL,
+    items_json TEXT NOT NULL,
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
 CREATE INDEX IF NOT EXISTS idx_medications_user ON medications(user_id, active);
 CREATE INDEX IF NOT EXISTS idx_dose_events_user_date ON dose_events(user_id, scheduled_at);
 CREATE INDEX IF NOT EXISTS idx_conversations_user ON conversations(user_id, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_food_history_user ON food_history(user_id, created_at DESC);
 """
 
 
@@ -87,6 +106,67 @@ class Database:
     def initialize(self) -> None:
         with self.connect() as connection:
             connection.executescript(SCHEMA)
+            profile_columns = {
+                row["name"] for row in connection.execute("PRAGMA table_info(profiles)")
+            }
+            if "onboarding_completed" not in profile_columns:
+                connection.execute(
+                    "ALTER TABLE profiles ADD COLUMN onboarding_completed INTEGER NOT NULL DEFAULT 1"
+                )
+            food_history_columns = {
+                row["name"] for row in connection.execute("PRAGMA table_info(food_history)")
+            }
+            if "conversation_id" not in food_history_columns:
+                connection.execute(
+                    "ALTER TABLE food_history ADD COLUMN conversation_id INTEGER REFERENCES conversations(id) ON DELETE SET NULL"
+                )
+            connection.execute(
+                "CREATE UNIQUE INDEX IF NOT EXISTS idx_food_history_conversation ON food_history(conversation_id)"
+            )
+            rows = connection.execute(
+                "SELECT user_id,conditions_json FROM profiles"
+            ).fetchall()
+            for row in rows:
+                try:
+                    stored_conditions = json.loads(row["conditions_json"])
+                except (json.JSONDecodeError, TypeError):
+                    stored_conditions = []
+                cleaned_conditions = supported_conditions(stored_conditions)
+                if cleaned_conditions != stored_conditions:
+                    connection.execute(
+                        "UPDATE profiles SET conditions_json=? WHERE user_id=?",
+                        (json.dumps(cleaned_conditions), row["user_id"]),
+                    )
+            conversation_rows = connection.execute(
+                """
+                SELECT id,user_id,question,response_json,intent,created_at
+                FROM conversations
+                WHERE user_id IS NOT NULL AND COALESCE(intent, '') != 'source_follow_up'
+                """
+            ).fetchall()
+            for row in conversation_rows:
+                try:
+                    response = json.loads(row["response_json"])
+                except (json.JSONDecodeError, TypeError):
+                    continue
+                nutrition_items = response.get("nutrition_items") or []
+                if not nutrition_items:
+                    continue
+                connection.execute(
+                    """
+                    INSERT OR IGNORE INTO food_history
+                        (user_id,conversation_id,question,mode,items_json,created_at)
+                    VALUES (?,?,?,?,?,?)
+                    """,
+                    (
+                        row["user_id"],
+                        row["id"],
+                        row["question"],
+                        row["intent"] or "chat",
+                        json.dumps(nutrition_items, ensure_ascii=False),
+                        row["created_at"],
+                    ),
+                )
 
     @contextmanager
     def session(self) -> Iterator[sqlite3.Connection]:
@@ -99,4 +179,3 @@ class Database:
             raise
         finally:
             connection.close()
-

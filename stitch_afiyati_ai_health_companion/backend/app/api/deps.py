@@ -19,13 +19,20 @@ def optional_user(
         return None
     with request.app.state.db.session() as connection:
         row = connection.execute(
-            "SELECT id,email,name,created_at FROM users WHERE id = ?", (payload["sub"],)
+            """SELECT users.id,users.email,users.name,users.created_at,
+                      COALESCE(profiles.onboarding_completed, 0) AS onboarding_completed
+               FROM users LEFT JOIN profiles ON profiles.user_id = users.id
+               WHERE users.id = ?""",
+            (payload["sub"],),
         ).fetchone()
-    return dict(row) if row else None
+    if not row:
+        return None
+    user = dict(row)
+    user["onboarding_completed"] = bool(user["onboarding_completed"])
+    return user
 
 
 def current_user(user: dict | None = Depends(optional_user)) -> dict:
     if not user:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Authentication required")
     return user
-

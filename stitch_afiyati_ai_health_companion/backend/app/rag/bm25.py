@@ -6,6 +6,8 @@ from pathlib import Path
 
 from rank_bm25 import BM25Okapi
 
+from app.core.conditions import is_supported_condition
+
 
 def lexical_tokens(text: str) -> list[str]:
     normalized = text.lower().replace("أ", "ا").replace("إ", "ا").replace("آ", "ا").replace("ى", "ي")
@@ -32,7 +34,12 @@ class BM25Index:
 
     def reload(self) -> None:
         try:
-            self.chunks = json.loads(self.index_path.read_text(encoding="utf-8"))
+            chunks = json.loads(self.index_path.read_text(encoding="utf-8"))
+            self.chunks = [
+                chunk
+                for chunk in chunks
+                if is_supported_condition(chunk.get("metadata", {}).get("condition"))
+            ]
         except (FileNotFoundError, json.JSONDecodeError):
             self.chunks = []
         self.tokenized = [lexical_tokens(chunk["text"]) for chunk in self.chunks]

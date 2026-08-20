@@ -13,10 +13,9 @@
     },
     "q02": {
       "relevant_passages": [
-        {"source_filename": "NICE_NG28_Type2_Diabetes_Adults.pdf", "pages": [10]},
-        {"source_filename": "KDIGO_CKD_2024.pdf", "pages": [111, 112, 113]}
+        {"source_filename": "NICE_NG28_Type2_Diabetes_Adults.pdf", "pages": [10]}
       ],
-      "rationale": "The diabetes guideline covers fruit and carbohydrate quality; KDIGO provides individualized potassium and fruit guidance."
+      "rationale": "The diabetes guideline covers fruit, carbohydrate quality, and individualized dietary advice."
     },
     "q03": {
       "relevant_passages": [
@@ -44,28 +43,30 @@
     },
     "q07": {
       "relevant_passages": [
-        {"source_filename": "KDIGO_CKD_2024.pdf", "pages": [41, 42]}
+        {"source_filename": "NICE_NG136_Hypertension_Adults.pdf", "pages": [11]}
       ],
-      "rationale": "KDIGO section 3.2 gives CKD-specific physical activity practice points."
+      "rationale": "NG136 includes regular exercise in lifestyle advice for hypertension."
     },
     "q08": {
       "relevant_passages": [
         {"source_filename": "NICE_NG136_Hypertension_Adults.pdf", "pages": [11]},
-        {"source_filename": "KDIGO_CKD_2024.pdf", "pages": [42, 43, 96, 97, 98]}
+        {"source_filename": "NICE_NG28_Type2_Diabetes_Adults.pdf", "pages": [10, 11]}
       ],
-      "rationale": "Both guidelines provide condition-specific sodium recommendations and cautions."
+      "rationale": "The supported guidelines provide condition-specific dietary context for sodium and healthy eating."
     },
     "q09": {
       "relevant_passages": [
-        {"source_filename": "GINA_Asthma_Strategy_2026.pdf", "pages": [64, 65, 66, 67, 70, 71, 72]}
+        {"source_filename": "NICE_NG136_Hypertension_Adults.pdf", "pages": [11]},
+        {"source_filename": "NICE_NG28_Type2_Diabetes_Adults.pdf", "pages": [10, 11, 22, 25]}
       ],
-      "rationale": "GINA's non-pharmacological strategy section covers activity, diet, smoking, weight, exposures, and stress."
+      "rationale": "The two supported guidelines cover lifestyle advice for hypertension and type 2 diabetes."
     },
     "q10": {
       "relevant_passages": [
-        {"source_filename": "GINA_Asthma_Strategy_2026.pdf", "pages": [64, 66]}
+        {"source_filename": "NICE_NG136_Hypertension_Adults.pdf", "pages": [11]},
+        {"source_filename": "NICE_NG28_Type2_Diabetes_Adults.pdf", "pages": [10, 11]}
       ],
-      "rationale": "GINA summarizes smoking cessation and details the effects of active and environmental tobacco smoke."
+      "rationale": "The supported guidelines include smoking and lifestyle counseling in condition management."
     },
     "q11": {
       "relevant_passages": [
@@ -81,9 +82,9 @@
     },
     "q13": {
       "relevant_passages": [
-        {"source_filename": "KDIGO_CKD_2024.pdf", "pages": [99, 111, 112, 113]}
+        {"source_filename": "NICE_NG136_Hypertension_Adults.pdf", "pages": [11]}
       ],
-      "rationale": "KDIGO emphasizes individualized assessment and moderation for hyperkalemia rather than a universal safe quantity."
+      "rationale": "NG136 advises keeping dietary sodium low without turning the guidance into an individualized prescription."
     },
     "q14": {
       "relevant_passages": [
@@ -99,16 +100,16 @@
     },
     "q25": {
       "relevant_passages": [
-        {"source_filename": "KDIGO_CKD_2024.pdf", "pages": [43, 44, 98, 99]}
+        {"source_filename": "NICE_NG136_Hypertension_Adults.pdf", "pages": [11]}
       ],
-      "rationale": "KDIGO provides RAS inhibitor use, monitoring, sodium, and related lifestyle guidance."
+      "rationale": "NG136 directly addresses dietary sodium as part of hypertension lifestyle advice."
     },
     "q27": {
       "relevant_passages": [
         {"source_filename": "NICE_NG136_Hypertension_Adults.pdf", "pages": [11]},
-        {"source_filename": "KDIGO_CKD_2024.pdf", "pages": [42, 43, 96, 97, 98]}
+        {"source_filename": "NICE_NG28_Type2_Diabetes_Adults.pdf", "pages": [10, 11]}
       ],
-      "rationale": "The question explicitly requires separate sodium evidence from both hypertension and CKD guidance."
+      "rationale": "The question explicitly requires separate dietary evidence from both supported guidelines."
     }
   }
 }

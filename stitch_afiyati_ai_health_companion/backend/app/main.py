@@ -5,9 +5,11 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api import auth, chat, medications, misc, profile
+from app.api import auth, chat, foods, medications, misc, profile
 from app.core.config import Settings
 from app.db.database import Database
+from app.services.food_data_service import FoodDataService
+from app.services.health_impact_service import HealthImpactService
 from app.services.rag_service import RAGService
 
 
@@ -31,6 +33,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.state.settings = settings
     app.state.db = db
     app.state.rag = RAGService(settings)
+    app.state.food_data = FoodDataService(settings, db)
+    app.state.health_impacts = HealthImpactService(settings.root_dir)
     app.add_middleware(
         CORSMiddleware,
         allow_origins=["http://127.0.0.1:5173", "http://localhost:5173"],
@@ -42,6 +46,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     app.include_router(profile.router, prefix="/api")
     app.include_router(medications.router, prefix="/api")
     app.include_router(chat.router, prefix="/api")
+    app.include_router(foods.router, prefix="/api")
     app.include_router(misc.router, prefix="/api")
 
     @app.get("/api/health")
@@ -50,6 +55,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             "status": "ok",
             "database": "ready",
             "rag": request.app.state.rag.status(),
+            "food_data": request.app.state.food_data.status(),
+            "health_rules": request.app.state.health_impacts.status(),
             "ollama": "not_checked",
         }
         if deep:

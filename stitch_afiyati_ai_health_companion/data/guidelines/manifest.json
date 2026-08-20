@@ -15,7 +15,7 @@
     "sha256": "07F00FF626BB0AA930912FDF66CB0D05D2BE6FCA69469DBBCE66233B063F6348"
   },
   {
-    "file": "type2_diabetes/nice/NICE_NG28_Type2_Diabetes_Adults.pdf",
+    "file": "type_2_diabetes/nice/NICE_NG28_Type2_Diabetes_Adults.pdf",
     "condition": "type_2_diabetes",
     "organization": "nice",
     "guideline_id": "NG28",
@@ -28,35 +28,5 @@
     "source_url": "https://www.nice.org.uk/guidance/ng28",
     "pdf_source_url": "https://www.nice.org.uk/guidance/ng28/resources/type-2-diabetes-in-adults-management-pdf-1837338615493",
     "sha256": "1A3BE64FF05A3A01F50487EAC05A3B6A61743FBB55584E78088C352B7CBC2E5B"
-  },
-  {
-    "file": "chronic_kidney_disease/kdigo/KDIGO_CKD_2024.pdf",
-    "condition": "chronic_kidney_disease",
-    "organization": "kdigo",
-    "guideline_id": "KDIGO-CKD-2024",
-    "title": "KDIGO 2024 Clinical Practice Guideline for the Evaluation and Management of Chronic Kidney Disease",
-    "publication_year": 2024,
-    "version": "2024",
-    "language": "en",
-    "source_type": "clinical_guideline",
-    "status": "current",
-    "source_url": "https://kdigo.org/guidelines/ckd-evaluation-and-management/",
-    "pdf_source_url": "https://kdigo.org/wp-content/uploads/2026/04/KDIGO-2024-CKD-Guideline.pdf",
-    "sha256": "0B77A9E32CA6C7BBCCBDDF902BE4427BF8BC0D2DD7E3FFBC18042F602F371B27"
-  },
-  {
-    "file": "asthma/gina/GINA_Asthma_Strategy_2026.pdf",
-    "condition": "asthma",
-    "organization": "gina",
-    "guideline_id": "GINA-2026",
-    "title": "Global Strategy for Asthma Management and Prevention",
-    "publication_year": 2026,
-    "version": "2026 update",
-    "language": "en",
-    "source_type": "clinical_guideline",
-    "status": "current",
-    "source_url": "https://ginasthma.org/2026-gina-strategy-report/",
-    "pdf_source_url": "https://ginasthma.org/wp-content/uploads/2026/05/GINA-2026-Strategy-Report-WMS.pdf",
-    "sha256": "33D0453DF2D6D49BE525A93AE547F71943E9AF4F138AB44B9E5EAA765A04B445"
   }
 ]

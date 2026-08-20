@@ -57,7 +57,7 @@ class OllamaService:
     ) -> tuple[dict[str, Any], float]:
         started = time.perf_counter()
         try:
-            async with httpx.AsyncClient(timeout=300) as client:
+            async with httpx.AsyncClient(timeout=self.settings.generation_timeout_seconds) as client:
                 response = await client.post(
                     f"{self.settings.ollama_base_url}/api/generate",
                     json={
@@ -67,7 +67,11 @@ class OllamaService:
                         "think": False,
                         "format": schema,
                         "keep_alive": "2m",
-                        "options": {"temperature": 0.1, "num_ctx": 6144, "num_predict": 900},
+                        "options": {
+                            "temperature": 0.1,
+                            "num_ctx": self.settings.generation_context_tokens,
+                            "num_predict": self.settings.generation_max_tokens,
+                        },
                     },
                 )
                 response.raise_for_status()

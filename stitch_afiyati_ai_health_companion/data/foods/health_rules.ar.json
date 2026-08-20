@@ -1,0 +1,159 @@
+{
+  "version": "1.0.0",
+  "reviewed_on": "2026-08-18",
+  "scope": "Decision-support rules for the two supported conditions only. They complement, and never replace, individual medical or dietitian advice.",
+  "sources": [
+    {
+      "id": "nice_ng136_lifestyle",
+      "title": "Hypertension in adults: diagnosis and management (NG136)",
+      "organization": "National Institute for Health and Care Excellence (NICE)",
+      "section": "1.4.2",
+      "url": "https://www.nice.org.uk/guidance/ng136",
+      "use": "Healthy diet and regular exercise can reduce blood pressure."
+    },
+    {
+      "id": "nice_ng136_caffeine",
+      "title": "Hypertension in adults: diagnosis and management (NG136)",
+      "organization": "National Institute for Health and Care Excellence (NICE)",
+      "section": "1.4.4",
+      "url": "https://www.nice.org.uk/guidance/ng136",
+      "use": "Discourage excessive consumption of coffee and other caffeine-rich products."
+    },
+    {
+      "id": "nice_ng136_sodium",
+      "title": "Hypertension in adults: diagnosis and management (NG136)",
+      "organization": "National Institute for Health and Care Excellence (NICE)",
+      "section": "1.4.5",
+      "url": "https://www.nice.org.uk/guidance/ng136",
+      "use": "Encourage low dietary sodium intake; use salt reduction rather than potassium salt substitutes for people with diabetes or other listed risks."
+    },
+    {
+      "id": "nice_ng28_dietary",
+      "title": "Type 2 diabetes in adults: management (NG28)",
+      "organization": "National Institute for Health and Care Excellence (NICE)",
+      "section": "1.3.3, 1.3.6 and 1.3.7",
+      "url": "https://www.nice.org.uk/guidance/ng28/chapter/Dietary-advice-and-interventions",
+      "use": "Encourages high-fibre, low-GI carbohydrate sources and individualises carbohydrate intake and meal patterns."
+    },
+    {
+      "id": "ada_2026_nutrition",
+      "title": "Standards of Care in Diabetes—2026: Facilitating Positive Health Behaviors and Well-being",
+      "organization": "American Diabetes Association",
+      "section": "Recommendation 5.14",
+      "url": "https://diabetesjournals.org/care/article/49/Supplement_1/S89/163932/5-Facilitating-Positive-Health-Behaviors-and-Well",
+      "use": "Emphasises whole foods and minimising sugar-sweetened beverages, sweets, refined grains, and processed foods."
+    },
+    {
+      "id": "who_healthy_diet_2026",
+      "title": "Healthy diet",
+      "organization": "World Health Organization",
+      "section": "Healthy diet guidance",
+      "url": "https://www.who.int/news-room/fact-sheets/detail/healthy-diet",
+      "use": "Encourages minimally processed foods and limiting free sugars and sodium."
+    }
+  ],
+  "meal_groups": [
+    {"id": "fruit", "label": "فواكه كاملة", "foods": ["موز", "تفاح", "برتقال", "عنب", "مانجو", "فراولة", "بطيخ", "كمثرى", "خوخ", "أناناس", "كيوي", "ليمون", "رمان", "تين", "أفوكادو"]},
+    {"id": "dried_fruit", "label": "فواكه مجففة", "foods": ["تمر", "زبيب"]},
+    {"id": "non_starchy_vegetable", "label": "خضراوات", "foods": ["خيار", "طماطم", "خس", "جزر", "بصل", "ثوم", "فلفل رومي", "كوسة", "باذنجان", "بروكلي", "قرنبيط", "سبانخ", "فاصوليا خضراء", "مشروم", "ملوخية"]},
+    {"id": "starchy_vegetable", "label": "خضراوات نشوية", "foods": ["بطاطس مسلوقة", "بطاطس", "بطاطس مقلية", "بسلة", "ذرة"]},
+    {"id": "fried_food", "label": "أطعمة مقلية", "foods": ["بطاطس مقلية"]},
+    {"id": "whole_grain", "label": "حبوب كاملة", "foods": ["خبز حبوب كاملة", "شوفان مطبوخ", "أرز بني مطبوخ", "كينوا مطبوخة", "برغل مطبوخ", "عيش بلدي"]},
+    {"id": "refined_grain", "label": "حبوب مكررة", "foods": ["أرز مطبوخ", "مكرونة مطبوخة", "خبز أبيض", "كسكسي مطبوخ"]},
+    {"id": "pulses", "label": "بقوليات", "foods": ["فول مطبوخ", "عدس مطبوخ", "حمص مطبوخ", "فاصوليا حمراء مطبوخة", "فاصوليا سوداء مطبوخة"]},
+    {"id": "lean_protein", "label": "بروتينات", "foods": ["صدر دجاج مطهو", "بيض مسلوق", "بيض", "توفو", "ديك رومي مطهو", "جمبري مطهو", "سمك بلطي مطهو", "ورك دجاج مطهو"]},
+    {"id": "oily_fish", "label": "أسماك دهنية", "foods": ["سمك سلمون مطهو", "ماكريل مطهو", "سردين معلب"]},
+    {"id": "red_meat", "label": "لحوم حمراء", "foods": ["لحم بقري مطهو", "لحم ضأن مطهو"]},
+    {"id": "nuts_and_seeds", "label": "مكسرات وبذور", "foods": ["فول سوداني", "لوز", "جوز عين الجمل", "كاجو", "فستق"]},
+    {"id": "dairy", "label": "ألبان", "foods": ["زبادي سادة", "حليب كامل الدسم", "حليب قليل الدسم", "حليب خالي الدسم", "حليب صويا غير محلى", "حليب لوز غير محلى"]},
+    {"id": "high_saturated_fat", "label": "دهون مشبعة", "foods": ["جبنة شيدر", "زبدة"]},
+    {"id": "added_sugar", "label": "سكريات مضافة وحلويات", "foods": ["عسل", "سكر", "شوكولاتة داكنة", "كاكاو بالحليب", "ليمونادة"]},
+    {"id": "juice", "label": "عصائر", "foods": ["عصير برتقال", "عصير تفاح", "عصير جزر"]},
+    {"id": "caffeinated_drink", "label": "مشروبات تحتوي كافيين", "foods": ["قهوة سوداء", "شاي أخضر", "شاي أسود", "إسبريسو", "كابتشينو", "لاتيه", "مشروب طاقة", "مشروب كولا"]},
+    {"id": "unsweetened_drink", "label": "مشروبات غير محلاة", "foods": ["مياه", "قهوة منزوعة الكافيين", "شاي أعشاب", "مياه غازية", "مشروب كركديه", "مشروب زنجبيل"]},
+    {"id": "sweetened_drink", "label": "مشروبات محلاة", "foods": ["مشروب كولا", "مشروب طاقة", "ليمونادة", "كاكاو بالحليب"]},
+    {"id": "prepared_salty_food", "label": "أطعمة قد تكون عالية الصوديوم", "foods": ["تونة معلبة بالماء", "سردين معلب", "جبنة شيدر", "زبدة", "عصير طماطم"]},
+    {"id": "mixed_dish", "label": "طبق مركب", "foods": ["كشري", "محشي", "فتة", "طعمية", "شاورما", "حواوشي", "كفتة", "مسقعة"]}
+  ],
+  "rules": [
+    {
+      "id": "hypertension-caffeine",
+      "condition": "hypertension",
+      "food_groups": ["caffeinated_drink"],
+      "action": "reduce",
+      "needs_quantity": true,
+      "assessment": "قد يهم الكافيين ضغطك إذا كان الاستهلاك مفرطاً؛ لا تحدد الإرشادات هنا حداً شخصياً ثابتاً.",
+      "advice": "اكتب عدد الأكواب وحجمها اليوم حتى نقيّم الاستهلاك، وقلّل الاستهلاك المفرط بدلاً من الاعتماد على تقدير عام.",
+      "source_ids": ["nice_ng136_caffeine"]
+    },
+    {
+      "id": "hypertension-sodium",
+      "condition": "hypertension",
+      "food_groups": ["prepared_salty_food"],
+      "action": "reduce",
+      "assessment": "هذا الصنف قد يضيف صوديوم إلى اليوم الغذائي، وضبط الصوديوم جزء من إرشادات الضغط.",
+      "advice": "قلّل الكمية واختر النسخة الأقل صوديوم إن وُجدت؛ راجع قيمة الصوديوم الظاهرة من قاعدة الطعام ولا تستخدم بدائل ملح البوتاسيوم من نفسك.",
+      "source_ids": ["nice_ng136_sodium", "who_healthy_diet_2026"]
+    },
+    {
+      "id": "hypertension-general-healthy-food",
+      "condition": "hypertension",
+      "food_groups": ["fruit", "non_starchy_vegetable", "whole_grain", "pulses", "lean_protein", "oily_fish", "unsweetened_drink"],
+      "action": "no_documented_harm",
+      "assessment": "لا توجد أضرار خاصة موثقة لهذا الصنف على الضغط ضمن قاعدة المراجعة الحالية عند التحضير بدون ملح مضاف أو مكونات مخفية.",
+      "advice": "حافظ على التحضير قليل الملح؛ هذه نتيجة مساندة وليست بديلاً عن خطة علاجك أو قياسات الضغط.",
+      "source_ids": ["nice_ng136_lifestyle", "who_healthy_diet_2026"]
+    },
+    {
+      "id": "type2-high-fibre-foods",
+      "condition": "type_2_diabetes",
+      "food_groups": ["fruit", "non_starchy_vegetable", "whole_grain", "pulses", "lean_protein", "oily_fish", "nuts_and_seeds", "unsweetened_drink"],
+      "action": "no_documented_harm",
+      "assessment": "لا توجد أضرار خاصة موثقة لهذا الصنف ضمن الإرشادات عند الكمية المسجلة؛ الإرشادات تشجع الفواكه والخضراوات والحبوب الكاملة والبقوليات والأسماك الدهنية كجزء من نمط غذائي مناسب.",
+      "advice": "تُضبط الكربوهيدرات والوجبة ككل بصورة فردية، خصوصاً إذا كنت تستخدم الإنسولين أو دواء قد يسبب هبوط السكر.",
+      "source_ids": ["nice_ng28_dietary", "ada_2026_nutrition"]
+    },
+    {
+      "id": "type2-portion-carbohydrate",
+      "condition": "type_2_diabetes",
+      "food_groups": ["dried_fruit", "starchy_vegetable", "refined_grain"],
+      "priority": 50,
+      "action": "review_portion",
+      "needs_quantity": true,
+      "assessment": "هذا الصنف مصدر كربوهيدرات، ولا تضع الإرشادات كمية واحدة تصلح لكل شخص مصاب بالسكري.",
+      "advice": "اكتب الكمية بالجرام أو عدد الملاعق/القطع قبل الحكم؛ ناقشها ضمن خطة وجبتك، وفضّل المصادر الأعلى أليافاً والأقل في المؤشر الجلايسيمي حيث يناسبك.",
+      "source_ids": ["nice_ng28_dietary"]
+    },
+    {
+      "id": "type2-added-sugars",
+      "condition": "type_2_diabetes",
+      "food_groups": ["added_sugar", "juice", "sweetened_drink"],
+      "priority": 90,
+      "action": "reduce",
+      "needs_quantity": true,
+      "assessment": "هذا الصنف قد يرفع مدخول السكريات الحرة أو الطاقة، وهو ضمن الأصناف التي يُنصح بتقليلها في نمط الطعام مع السكري.",
+      "advice": "اذكر كمية الكوب أو الحصة؛ قلّلها واختر بديلاً غير محلى أو ثمرة كاملة عند الإمكان. لا أضع منعاً مطلقاً من دون خطة علاجك وأدويتك.",
+      "source_ids": ["nice_ng28_dietary", "ada_2026_nutrition", "who_healthy_diet_2026"]
+    },
+    {
+      "id": "type2-saturated-fat",
+      "condition": "type_2_diabetes",
+      "food_groups": ["high_saturated_fat", "red_meat", "fried_food"],
+      "priority": 100,
+      "action": "reduce",
+      "assessment": "هذا الصنف قد يرفع مدخول الدهون المشبعة أو يكون أكثر معالجة؛ الإرشادات تنصح بالتحكم في الدهون المشبعة واختيار أطعمة كاملة أكثر.",
+      "advice": "قلّل التكرار والكمية، واختر بديلاً أقل دهوناً مشبعة عند الإمكان. لا يغيّر ذلك دواء السكري أو جرعته.",
+      "source_ids": ["nice_ng28_dietary", "ada_2026_nutrition"]
+    },
+    {
+      "id": "type2-low-fat-dairy",
+      "condition": "type_2_diabetes",
+      "food_groups": ["dairy"],
+      "action": "review_portion",
+      "needs_quantity": true,
+      "assessment": "الألبان تختلف في الدسم والسكريات المضافة؛ توصي الإرشادات باختيار بدائل قليلة الدسم ضمن الخطة الفردية.",
+      "advice": "اكتب الكمية ونوع المنتج، وفضّل غير المحلى وقليل الدسم عندما يناسبك.",
+      "source_ids": ["nice_ng28_dietary"]
+    }
+  ]
+}

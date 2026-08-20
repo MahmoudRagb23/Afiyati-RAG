@@ -17,10 +17,15 @@ in this repository.
   history, sources, settings, help, and technical RAG trace.
 - Local scrypt password hashing, signed session tokens, SQLite profiles,
   conversations, medications, dose events, and symptom records.
+- Profile-aware chat that uses only safe, user-reported profile fields plus
+  summaries of the previous three questions for follow-up context. Profile and
+  conversation context never count as medical evidence.
+- Independent food-composition lookup across USDA FoodData Central and the UK
+  CoFID 2021 dataset, with each source value and exact record shown separately.
 - Recursive PDF validation and parsing with page preservation, repeated
   header/footer removal, section-aware parent/child chunks, and explicit
   manifest metadata.
-- Ollama embeddings and `qwen3:8b` structured generation; Qdrant local mode;
+- Ollama embeddings and `qwen3:4b` structured generation; Qdrant local mode;
   BM25; reciprocal-rank fusion; lexical fallback reranking; metadata-derived
   citations; structural citation validation; and claim screening.
 - Deterministic safety classes: `ALLOWED`, `CAUTION`, `OUT_OF_SCOPE`, and
@@ -60,7 +65,7 @@ to override them.
 ## Ollama models
 
 ```powershell
-ollama pull qwen3:8b
+ollama pull qwen3:4b
 ollama pull qwen3-embedding:0.6b
 ollama pull bge-m3
 ollama pull nomic-embed-text
@@ -76,6 +81,10 @@ The stable default uses deterministic lexical reranking. This avoids holding a
 second language model in 4 GB VRAM; a model reranker can be added behind the
 existing interface after it is benchmarked.
 
+Generation defaults to a 4,096-token context and a 420-token structured answer
+budget so the local 4B model remains practical on mixed CPU/GPU laptops. These
+limits and the 180-second server timeout are configurable through `.env.example`.
+
 ## Start
 
 Open two terminals:
@@ -90,9 +99,9 @@ Then open `http://127.0.0.1:5173`. API documentation is available locally at
 
 ## Guideline library
 
-Supported initial conditions are hypertension, type 2 diabetes, chronic kidney
-disease, and asthma. Intended first sources are NICE NG136, NICE NG28, KDIGO
-2024 CKD, and the current GINA Strategy Report.
+The currently supported conditions are hypertension and type 2 diabetes. Their
+production sources are NICE NG136 and NICE NG28. Other conditions remain
+disabled in the interface until their full product and evidence support ships.
 
 1. Put official current PDFs under `data/guidelines/<condition>/<organization>`.
 2. Add authoritative metadata to `data/guidelines/manifest.json`.
@@ -109,16 +118,48 @@ IDs, unknown folders/organizations, version/year gaps, current/archive
 conflicts, empty files, and parsing failures. It never silently ingests invalid
 content.
 
+## Food and beverage data
+
+Food and beverage questions are matched through the reviewed Arabic catalogue
+in `data/foods/aliases.ar.json`. The catalogue currently covers 112 common
+foods, beverages, and Egyptian mixed dishes. Nutrition composition is looked
+up independently in two official databases:
+
+- USDA FoodData Central is the primary live API lookup.
+- UK Composition of Foods Integrated Dataset (CoFID) 2021 is an independent
+  official cross-check and fallback. Its public workbook downloads lazily to
+  the ignored `data/foods/raw` directory on first use.
+
+When both sources have a sufficiently close generic-food match, the interface
+shows both exact records and compares shared nutrients side by side. Values are
+never merged or averaged. When only one source matches, the interface labels it
+as a single-source result instead of claiming cross-verification. Trace values
+such as `Tr` and unavailable CoFID values are omitted rather than converted to
+invented zeroes.
+
+Every result preserves its record ID, official URL, data type, organization,
+and license. Quantities entered in grams scale each source independently from
+its 100 g basis, and successful analyses are saved to the user's local food
+history. Successful source lookups are cached in SQLite for 30 days.
+
+`DEMO_KEY` works for local development. Set `USDA_FDC_API_KEY` to your own free
+Data.gov key for production limits. If one official provider is unavailable,
+the other can still provide a transparently labeled single-source result. If
+neither source matches, or a mixed dish has no confirmed ingredients, Afiyati
+displays no nutrition numbers rather than asking the language model to estimate
+them. Asking `ما المصدر؟` returns the direct records preserved from the
+previous answer.
+
 ## RAG flow
 
 ```text
-Question + profile
+Question + safe profile fields + last 3 conversation summaries
   -> deterministic safety screen
   -> query analysis and condition-aware rewrites
   -> dense Qdrant search + BM25
   -> reciprocal-rank fusion and deduplication
   -> modular fallback reranker, Top-5
-  -> qwen3:8b structured generation from evidence only
+  -> qwen3:4b structured generation from evidence only
   -> citation replacement from retrieved metadata
   -> claim/citation validation and safe downgrade
   -> answer + evidence panel + technical trace
@@ -137,7 +178,7 @@ requests.
 scripts\evaluate_rag.bat
 ```
 
-The repository includes a frozen four-document official corpus and 17
+The repository includes a frozen two-document official corpus and 17
 page-level provisional relevance judgments. The evaluator reports Precision@3,
 Precision@5, Recall@5, MRR, Top-K comparisons, citation accuracy, citation
 validity, unsupported-claim rate, and latency with 95% bootstrap confidence
@@ -155,7 +196,8 @@ promotion workflow.
 scripts\test_all.bat
 ```
 
-Tests cover health, auth, profile persistence, multiple conditions, temporary
+Tests cover health, auth, profile persistence, safe chat personalization,
+multi-source USDA/CoFID matching and comparison, multiple conditions, temporary
 and permanent medication schedules, dose states, empty-index refusal, emergency
 access without login, meal confirmation, chunk metadata, BM25 exact terms,
 hybrid fallback, Qdrant local storage, citation metadata, validation, safety,
@@ -163,11 +205,14 @@ and Ollama model availability.
 
 ## Known limitations
 
-- The four official PDFs are indexed locally, but the included relevance labels
+- The two official PDFs are indexed locally, but the included relevance labels
   are provisional and require independent clinician adjudication before the
   metrics can be called official.
 - Meal ingredient recognition is a mock/demo adapter; users must confirm every
   ingredient before RAG analysis.
+- Arabic food coverage is controlled through `data/foods/aliases.ar.json`; an
+  unrecognized name is refused until reviewed USDA and/or CoFID query aliases
+  are added. Mixed dishes still require confirmed ingredients and weights.
 - Browser reminders require the app to be open. Native background scheduling is
   outside this local web prototype.
 - Lexical claim verification is a conservative screen, not clinical NLI. It can

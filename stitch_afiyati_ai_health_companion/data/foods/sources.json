@@ -1,0 +1,40 @@
+[
+  {
+    "id": "usda_fdc",
+    "name": "USDA FoodData Central",
+    "organization": "U.S. Department of Agriculture, Agricultural Research Service",
+    "type": "nutrition_database",
+    "api_url": "https://api.nal.usda.gov/fdc/v1",
+    "website_url": "https://fdc.nal.usda.gov/",
+    "api_guide_url": "https://fdc.nal.usda.gov/api-guide/",
+    "license": "CC0 1.0 Universal",
+    "active": true,
+    "authority_level": "official_primary",
+    "usage": "Primary nutrition lookup for generic foods and beverages"
+  },
+  {
+    "id": "uk_cofid_2021",
+    "name": "UK Composition of Foods Integrated Dataset (CoFID) 2021",
+    "organization": "Public Health England",
+    "type": "nutrition_database",
+    "dataset_url": "https://assets.publishing.service.gov.uk/media/60538b91e90e07527df82ae4/McCance_Widdowsons_Composition_of_Foods_Integrated_Dataset_2021..xlsx",
+    "website_url": "https://www.gov.uk/government/publications/composition-of-foods-integrated-dataset-cofid",
+    "guide_url": "https://assets.publishing.service.gov.uk/media/60538e66d3bf7f03249bac58/McCance_and_Widdowsons_Composition_of_Foods_integrated_dataset_2021.pdf",
+    "version": "2021",
+    "license": "Open Government Licence v3.0",
+    "active": true,
+    "authority_level": "official_primary",
+    "usage": "Independent official cross-check and fallback for generic foods"
+  },
+  {
+    "id": "fao_infoods",
+    "name": "FAO/INFOODS Food Composition Databases",
+    "organization": "Food and Agriculture Organization of the United Nations",
+    "type": "quality_framework_and_catalogue",
+    "website_url": "https://www.fao.org/food-composition/tables-and-databases/en",
+    "version": "living catalogue",
+    "active": false,
+    "authority_level": "official_reference",
+    "usage": "Database quality framework and future regional dataset expansion"
+  }
+]

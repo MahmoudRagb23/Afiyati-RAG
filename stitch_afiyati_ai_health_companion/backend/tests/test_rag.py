@@ -17,6 +17,24 @@ from app.rag.vector_store import LocalVectorStore
 from app.services.citation_service import citation_from_chunk, validate_citations, verify_claims
 from app.services.contradiction_service import detect_guideline_differences
 from app.services.ollama_service import OllamaService
+from app.services.rag_service import grounded_fallback_response, validate_generated_summary
+
+
+def test_generated_summary_must_answer_in_arabic_without_repeating_question():
+    validate_generated_summary("لا تكفي الأدلة المتاحة لإجابة آمنة.", "هل القهوة مناسبة؟")
+    with pytest.raises(ValueError):
+        validate_generated_summary("هل القهوة مناسبة؟", "هل القهوة مناسبة؟")
+    with pytest.raises(ValueError):
+        validate_generated_summary("The available evidence is insufficient.", "هل القهوة مناسبة؟")
+
+
+def test_supported_condition_has_a_polite_sourced_fallback_answer():
+    answer = grounded_fallback_response(["hypertension"], "coffee")
+
+    assert answer["recommendation_status"] == "caution"
+    assert "تجنب الإفراط" in answer["summary"]
+    assert answer["citations"][0]["organization"] == "National Institute for Health and Care Excellence (NICE)"
+    assert answer["citations"][0]["source_url"].endswith("/ng136")
 
 
 def sample_chunk(chunk_id: str, text: str, condition: str = "hypertension") -> dict:
@@ -82,9 +100,13 @@ def test_chunks_never_cross_pdf_page_boundaries():
 
 
 def test_bilingual_query_rewrite_adds_retrieval_vocabulary():
-    analysis = analyze_query("ما كمية البوتاسيوم الآمنة لي؟", ["chronic_kidney_disease"])
+    analysis = analyze_query(
+        "ما كمية البوتاسيوم الآمنة لي؟",
+        ["hypertension", "unsupported_condition"],
+    )
     rewritten = rewrite_queries("ما كمية البوتاسيوم الآمنة لي؟", analysis)
     assert analysis["topic"] == "potassium"
+    assert analysis["conditions"] == ["hypertension"]
     assert any("dietary potassium" in value for value in rewritten)
 
 
@@ -144,7 +166,7 @@ def test_qdrant_local_storage_and_dense_search(tmp_path: Path):
     store = LocalVectorStore(tmp_path / "qdrant", "test_collection")
     chunks = [
         sample_chunk("11111111-1111-4111-8111-111111111111", "sodium blood pressure"),
-        sample_chunk("22222222-2222-4222-8222-222222222222", "asthma inhaler", "asthma"),
+        sample_chunk("22222222-2222-4222-8222-222222222222", "HbA1c target", "type_2_diabetes"),
     ]
     assert store.replace(chunks, [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0]]) == 2
     results = store.search([0.9, 0.1, 0.0], limit=1)
@@ -201,11 +223,15 @@ def test_guideline_validator_accepts_empty_library(tmp_path: Path):
     ("question", "expected"),
     [
         ("عندي ألم شديد في الصدر وضيق في التنفس", "POSSIBLE_EMERGENCY"),
+        ("أنا مش قادر أتنفس", "POSSIBLE_EMERGENCY"),
+        ("حاسس بالاختناق ومش قادر أخد نفسي", "POSSIBLE_EMERGENCY"),
+        ("تورم لساني وباختنق", "POSSIBLE_EMERGENCY"),
         ("Should I stop my medication?", "CAUTION"),
         ("Should I stop metformin because I feel tired?", "CAUTION"),
         ("أزيد جرعة دواء الضغط لحد كام؟", "CAUTION"),
         ("I suddenly cannot speak clearly and one side is weak.", "POSSIBLE_EMERGENCY"),
         ("Give me legal advice", "OUT_OF_SCOPE"),
+        ("هل القهوة مناسبة مع الربو؟", "UNSUPPORTED_CONDITION"),
         ("هل الأرز مناسب؟", "ALLOWED"),
     ],
 )
@@ -218,7 +244,7 @@ def test_ollama_models_are_reachable():
     settings = Settings.from_env()
     models = asyncio.run(OllamaService(settings).models())
     normalized = {name.removesuffix(":latest") for name in models}
-    assert "qwen3:8b" in normalized
+    assert "qwen3:4b" in normalized
     assert "qwen3-embedding:0.6b" in normalized
     assert "bge-m3" in normalized
     assert "nomic-embed-text" in normalized

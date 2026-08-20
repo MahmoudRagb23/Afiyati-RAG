@@ -13,15 +13,9 @@ from app.core.config import Settings
 
 KNOWN_CONDITIONS = {
     "hypertension",
-    "type2_diabetes",
     "type_2_diabetes",
-    "chronic_kidney_disease",
-    "asthma",
-    "cardiovascular",
-    "obesity",
-    "shared",
 }
-KNOWN_ORGANIZATIONS = {"nice", "who", "kdigo", "gina", "other_official"}
+KNOWN_ORGANIZATIONS = {"nice", "who", "other_official"}
 REQUIRED_METADATA = {
     "file",
     "condition",

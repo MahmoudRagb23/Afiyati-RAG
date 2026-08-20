@@ -41,11 +41,18 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { api } from "../api";
 import AnswerView from "../components/AnswerView";
 import AppShell from "../components/AppShell";
+import { isEmergencyMessage, isSymptomCheckIn } from "../safety";
+import { useAuth } from "../state/AuthContext";
+import { useLanguage } from "../state/LanguageContext";
 
-const loadingStages = ["أبحث في الإرشادات الطبية...", "أراجع المعلومات المتعلقة بحالتك...", "أتحقق من المصادر...", "أجهز الإجابة الآمنة..."];
+const loadingStages = ["أحدد الطعام أو المشروب...", "أتحقق من USDA وCoFID...", "أبحث في الإرشادات الطبية...", "أجهز الإجابة ومصادرها..."];
+const loadingStageKeys = ["loader.food", "loader.sources", "loader.guidance", "loader.answer"];
+const chatConditionLabels = { hypertension: "ارتفاع ضغط الدم", type_2_diabetes: "السكري من النوع الثاني" };
 
 function StagedLoader({ stage }) {
-  return <div className="staged-loader"><div className="scan-orbit"><Search /><i /></div><div><strong>{loadingStages[stage]}</strong><span>{stage + 1} من {loadingStages.length}</span><div className="stage-progress"><i style={{ width: `${((stage + 1) / loadingStages.length) * 100}%` }} /></div></div></div>;
+  const { isEnglish, t } = useLanguage();
+  const englishStages = ["Finding the food or drink...", "Checking official food data...", "Retrieving medical guidance...", "Preparing your sourced answer..."];
+  return <div className="staged-loader"><div className="scan-orbit"><Search /><i /></div><div><strong>{t(loadingStageKeys[stage], isEnglish ? englishStages[stage] : loadingStages[stage])}</strong><span>{isEnglish ? `${stage + 1} of ${loadingStages.length}` : `${stage + 1} من ${loadingStages.length}`}</span><div className="stage-progress"><i style={{ width: `${((stage + 1) / loadingStages.length) * 100}%` }} /></div></div></div>;
 }
 
 function useGroundedQuestion() {
@@ -60,34 +67,103 @@ function useGroundedQuestion() {
   return { answer, loading, stage, error, ask, setAnswer };
 }
 
-export function AskPage() {
-  const [question, setQuestion] = useState(""); const navigate = useNavigate(); const inputRef = useRef(null); const { answer, loading, stage, error, ask } = useGroundedQuestion();
-  const submit = async (event) => { event.preventDefault(); if (question.trim()) await ask({ question, mode: "chat" }); };
-  const examples = ["هل أقدر أشرب قهوتين في اليوم؟", "هل الموز مناسب لحالتي؟", "كيف يؤثر المشي على حالاتي الصحية؟"];
-  return <AppShell title="اسأل عافيتي" eyebrow="إجابة من الدليل، لا من الذاكرة">
+const chatModes = [
+  { id: "general", Icon: Bot, ar: "شات عافيتي", en: "Afiyati chat", descriptionAr: "اسأل أو كمل محادثة سابقة", descriptionEn: "Ask or continue a conversation" },
+  { id: "food", Icon: Utensils, ar: "شات الأكل", en: "Food chat", descriptionAr: "طعام، مشروبات، وكميات", descriptionEn: "Food, drinks, and amounts" },
+  { id: "symptom", Icon: Activity, ar: "متابعة الأعراض", en: "Symptom follow-up", descriptionAr: "سجّل ما تشعر به بأمان", descriptionEn: "Record how you feel safely" },
+];
+
+function SymptomFollowUp({ result, history, isEnglish }) {
+  const labels = {
+    monitoring: isEnglish ? "Monitor and record" : "مراقبة وتسجيل",
+    professional_evaluation_recommended: isEnglish ? "Professional review recommended" : "ينصح بتقييم مهني",
+  };
+  return <section className="symptom-chat-follow-up">
+    {result && <div className={`symptom-result ${result.classification || "monitoring"}`}><Activity /><div><strong>{labels[result.classification] || (isEnglish ? "Symptom update" : "تحديث الأعراض")}</strong><p>{result.message}</p></div></div>}
+    <div className="symptom-history-heading"><div><Clock3 /><span><strong>{isEnglish ? "Recent symptom check-ins" : "آخر متابعات الأعراض"}</strong><small>{isEnglish ? "Saved privately to help you notice changes." : "محفوظة محلياً لتلاحظ التغيّر مع الوقت."}</small></span></div><Link to="/symptoms">{isEnglish ? "Full tracker" : "المتابعة الكاملة"} <ChevronLeft /></Link></div>
+    {history.length ? <div className="symptom-history-list">{history.slice(0, 4).map((item) => <article key={item.id}><span className={`symptom-severity severity-${item.severity}`}>{isEnglish ? `Level ${item.severity}/10` : `الشدة ${item.severity}/10`}</span><div><strong>{item.symptoms}</strong><small>{new Date(`${item.created_at}Z`).toLocaleString(isEnglish ? "en-GB" : "ar-EG", { dateStyle: "medium", timeStyle: "short" })}</small></div></article>)}</div> : <p className="symptom-history-empty">{isEnglish ? "Your check-ins will appear here after the first update." : "ستظهر متابعاتك هنا بعد أول تسجيل."}</p>}
+  </section>;
+}
+
+export function AskPage({ defaultMode = "general" }) {
+  const [question, setQuestion] = useState(""); const [profile, setProfile] = useState(null); const [activeMode, setActiveMode] = useState(defaultMode); const [foodAmount, setFoodAmount] = useState(""); const [symptomSeverity, setSymptomSeverity] = useState(4); const [symptomHistory, setSymptomHistory] = useState([]); const [symptomResult, setSymptomResult] = useState(null); const [symptomLoading, setSymptomLoading] = useState(false); const [symptomError, setSymptomError] = useState(""); const { user } = useAuth(); const navigate = useNavigate(); const inputRef = useRef(null); const { answer, loading, stage, error, ask, setAnswer } = useGroundedQuestion();
+  const { isEnglish, t } = useLanguage();
+  const loadSymptomHistory = () => api("/symptoms/history").then(setSymptomHistory).catch(() => setSymptomHistory([]));
+  useEffect(() => { api("/profile").then(setProfile).catch(() => setProfile(null)); loadSymptomHistory(); }, []);
+  const selectedMode = chatModes.find((mode) => mode.id === activeMode) || chatModes[0];
+  const examples = {
+    general: isEnglish ? ["Can walking help my blood pressure?", "What about coffee with my profile?", "Show me the sources from the last answer."] : ["هل المشي مفيد لضغط الدم؟", "ماذا عن القهوة مع حالتي؟", "ما مصادر الإجابة السابقة؟"],
+    food: isEnglish ? ["200 g banana", "A cup of black coffee", "150 g low-fat milk"] : ["200 جم موز", "كوب قهوة سوداء", "150 جم حليب قليل الدسم"],
+    symptom: isEnglish ? ["I have had a headache since this morning", "I feel dizzy after lunch", "My heart is racing"] : ["عندي صداع منذ الصباح", "أشعر بدوخة بعد الغداء", "أشعر بخفقان في القلب"],
+  }[activeMode];
+  const placeholder = activeMode === "food"
+    ? (isEnglish ? "For example: black coffee or 200 g banana" : "مثال: قهوة سوداء أو 200 جم موز")
+    : activeMode === "symptom"
+      ? (isEnglish ? "Describe what you feel and when it started" : "اكتب ما تشعر به ومتى بدأ")
+      : t("ask.placeholder", "مثال: أنا عندي ضغط وسكري، هل القهوة مناسبة؟");
+  const firstName = (profile?.name || user?.name || "صديق عافيتي").trim().split(" ")[0];
+  const goToEmergency = () => navigate("/emergency", { state: { triggered: true } });
+  const changeMode = (mode) => { setActiveMode(mode); setAnswer(null); setSymptomResult(null); setSymptomError(""); };
+  const saveSymptomCheckIn = async (cleanQuestion, automatic = false) => {
+    setSymptomLoading(true); setSymptomError(""); setSymptomResult(null);
+    if (automatic) { setActiveMode("symptom"); setAnswer(null); }
+    try {
+      const result = await api("/symptoms", { method: "POST", body: JSON.stringify({ symptoms: cleanQuestion, severity: Number(symptomSeverity), context: automatic ? "تم التوجيه تلقائياً من شات عافيتي" : "تم التسجيل من شات متابعة الأعراض" }) });
+      if (result.emergency) { goToEmergency(); return; }
+      setSymptomResult(result); setQuestion(""); await loadSymptomHistory();
+    } catch (err) { setSymptomError(err.message); }
+    finally { setSymptomLoading(false); }
+  };
+  const submit = async (event) => {
+    event.preventDefault();
+    const cleanQuestion = question.trim();
+    if (!cleanQuestion) return;
+    if (isEmergencyMessage(cleanQuestion)) { goToEmergency(); return; }
+    if (activeMode === "symptom" || (activeMode === "general" && isSymptomCheckIn(cleanQuestion))) {
+      await saveSymptomCheckIn(cleanQuestion, activeMode === "general");
+      return;
+    }
+    const payload = { question: cleanQuestion, mode: activeMode === "food" ? "food" : "chat" };
+    if (activeMode === "food" && foodAmount) payload.food_quantities = [{ name: cleanQuestion, amount_g: Number(foodAmount) }];
+    const result = await ask(payload);
+    if (result?.emergency) { goToEmergency(); return; }
+  };
+  const pageTitle = activeMode === "food" ? (isEnglish ? "Food chat" : "شات الأكل") : activeMode === "symptom" ? (isEnglish ? "Symptom follow-up" : "متابعة الأعراض") : "اسأل عافيتي";
+  return <AppShell title={pageTitle} eyebrow="إجابة من الدليل، لا من الذاكرة">
     <div className="ask-layout">
-      <section className="ask-main card"><div className="assistant-intro"><span><Bot /></span><div><h2>ما الذي تريد فهمه اليوم؟</h2><p>اسأل عن طعام أو عادة أو إرشاد عام. الأسئلة الدوائية لا تغير وصفتك.</p></div></div>
-        {!answer && !loading && <div className="prompt-examples">{examples.map((example) => <button key={example} onClick={() => { setQuestion(example); inputRef.current?.focus(); }}><MessageCircleQuestion />{example}<ChevronLeft /></button>)}</div>}
-        {loading && <StagedLoader stage={stage} />}{error && <div className="inline-error"><AlertTriangle />{error}</div>}
-        <AnswerView answer={answer} onTechnical={(traceId) => { sessionStorage.setItem("afiyati_trace_id", traceId); navigate("/technical-demo"); }} />
-        <form className="chat-composer" onSubmit={submit}><textarea ref={inputRef} rows="2" maxLength="2000" required value={question} onChange={(e) => setQuestion(e.target.value)} placeholder="مثال: أنا عندي ضغط وسكري، هل القهوة مناسبة؟" /><button className="send-button" disabled={loading || !question.trim()} aria-label="إرسال السؤال">{loading ? <LoaderCircle className="spin" /> : <Send />}</button></form>
-        <p className="composer-note"><ShieldCheck /> إذا لم توجد أدلة كافية في المصادر المفهرسة، سيرفض عافيتي إعطاء توصية.</p>
+      <section className="ask-main card"><div className="assistant-intro"><span>{activeMode === "symptom" ? <Activity /> : activeMode === "food" ? <Utensils /> : <Bot />}</span><div><h2>{t("ask.greeting", "أهلاً يا")} {firstName} <span className="wave">👋</span></h2><p>{activeMode === "symptom" ? (isEnglish ? "I will help you record changes safely and escalate emergencies immediately." : "سأساعدك على تسجيل التغيّرات بأمان، وأحوّل الطوارئ فوراً.") : activeMode === "food" ? (isEnglish ? "Ask about food or drinks and see their data and sources separately." : "اسأل عن أي طعام أو مشروب وشاهد بياناته ومصادره بشكل منفصل.") : t("ask.intro", "أنا أراعي ملفك الصحي المسجل وسياق آخر محادثاتك، لكن كل توصية تظل مرتبطة بدليل ظاهر.")}</p></div></div>
+        <div className="chat-mode-tabs" role="tablist" aria-label={isEnglish ? "Conversation type" : "نوع المحادثة"}>{chatModes.map(({ id, Icon, ar, en, descriptionAr, descriptionEn }) => <button type="button" role="tab" aria-selected={activeMode === id} className={activeMode === id ? "active" : ""} onClick={() => changeMode(id)} key={id}><Icon /><span><strong>{isEnglish ? en : ar}</strong><small>{isEnglish ? descriptionEn : descriptionAr}</small></span></button>)}</div>
+        {activeMode !== "symptom" && <div className="profile-context-strip"><div><ShieldCheck /><span><strong>{t("ask.context", "السياق المستخدم")}</strong><small>{t("ask.contextLead", "بياناتك المبلّغ عنها للتخصيص وليست دليلاً طبياً")}</small></span></div><div className="profile-context-chips">{profile?.conditions?.map((condition) => <span key={condition}>{isEnglish ? ({ hypertension: "High blood pressure", type_2_diabetes: "Type 2 diabetes" }[condition] || condition) : (chatConditionLabels[condition] || condition)}</span>)}{profile?.allergies?.slice(0, 3).map((allergy) => <span className="allergy" key={allergy}>{isEnglish ? "Allergy" : "حساسية"}: {allergy}</span>)}{!profile?.conditions?.length && !profile?.allergies?.length && <span>{t("ask.emptyContext", "لا توجد حالات أو حساسيات مسجلة")}</span>}<Link to="/profile">{t("ask.edit", "تعديل الملف")}</Link></div></div>}
+        {!answer && !loading && activeMode !== "symptom" && <div className="prompt-examples">{examples.map((example) => <button key={example} onClick={() => { setQuestion(example); inputRef.current?.focus(); }}><MessageCircleQuestion />{example}<ChevronLeft /></button>)}</div>}
+        {activeMode === "symptom" && <div className="symptom-chat-intro"><ShieldAlert /><div><strong>{isEnglish ? "For urgent symptoms, we switch to emergency mode immediately." : "في الأعراض الطارئة سنحوّلك لوضع الطوارئ فوراً."}</strong><p>{isEnglish ? "For other symptoms, tell us the change and choose its current severity." : "أما غير الطارئة، اكتب ما تغيّر وحدد شدته الحالية."}</p></div></div>}
+        {activeMode === "symptom" && <div className="symptom-severity-control"><span>{isEnglish ? "Current severity" : "الشدة الحالية"}</span><strong>{symptomSeverity}/10</strong><input type="range" min="1" max="10" value={symptomSeverity} onChange={(event) => setSymptomSeverity(event.target.value)} /></div>}
+        {activeMode === "food" && <label className="food-chat-amount">{isEnglish ? "Amount in grams (optional)" : "الكمية بالجرام (اختياري)"}<input type="number" min="1" max="5000" value={foodAmount} onChange={(event) => setFoodAmount(event.target.value)} placeholder={isEnglish ? "e.g. 200" : "مثال: 200"} dir="ltr" /></label>}
+        {activeMode === "symptom" && <div className="prompt-examples">{examples.map((example) => <button key={example} onClick={() => { setQuestion(example); inputRef.current?.focus(); }}><Activity />{example}<ChevronLeft /></button>)}</div>}
+        {loading && <StagedLoader stage={stage} />}{error && activeMode !== "symptom" && <div className="inline-error"><AlertTriangle />{error}</div>}{symptomError && <div className="inline-error"><AlertTriangle />{symptomError}</div>}
+        {activeMode !== "symptom" && <AnswerView answer={answer} onTechnical={(traceId) => { sessionStorage.setItem("afiyati_trace_id", traceId); navigate("/technical-demo"); }} />}
+        {activeMode === "symptom" && <SymptomFollowUp result={symptomResult} history={symptomHistory} isEnglish={isEnglish} />}
+        <form className="chat-composer" onSubmit={submit}><textarea ref={inputRef} rows="2" maxLength="2000" required value={question} onChange={(e) => setQuestion(e.target.value)} placeholder={placeholder} /><button className="send-button" disabled={loading || symptomLoading || !question.trim()} aria-label={isEnglish ? "Send question" : "إرسال السؤال"}>{loading || symptomLoading ? <LoaderCircle className="spin" /> : <Send />}</button></form>
+        <p className="composer-note"><ShieldCheck /> {activeMode === "symptom" ? (isEnglish ? "This does not diagnose. Chest pain, choking, loss of consciousness, severe bleeding, or sudden weakness go to emergency immediately." : "هذه متابعة وليست تشخيصاً. ألم الصدر أو الاختناق أو فقدان الوعي أو النزيف الشديد أو الضعف المفاجئ يحوّل للطوارئ فوراً.") : activeMode === "food" ? (isEnglish ? "Add grams for food values linked to a specific amount and their official source." : "أضف الكمية بالجرام للحصول على قيم مرتبطة بكمية محددة ومصدرها الرسمي.") : t("ask.note", "لحساب دقيق اكتب الكمية بالجرام، مثل: 200 جم موز.")}</p>
       </section>
-      <aside className="ask-aside"><div className="card"><h3>ما الذي يُرسل للنموذج؟</h3><ol><li><span>1</span> سؤالك والحالات المسجلة</li><li><span>2</span> مقاطع الإرشادات المسترجعة</li><li><span>3</span> قواعد السلامة والرفض</li></ol></div><div className="safety-mini"><ShieldAlert /><p>لا تستخدم المحادثة في الطوارئ.</p><Link to="/emergency">افتح وضع الطوارئ</Link></div></aside>
+      <aside className="ask-aside"><div className="card"><h3>{activeMode === "symptom" ? (isEnglish ? "How follow-up works" : "كيف تعمل المتابعة؟") : activeMode === "food" ? (isEnglish ? "Food chat, clearly" : "شات الأكل بوضوح") : t("ask.how", "كيف تُبنى الإجابة؟")}</h3><ol>{activeMode === "symptom" ? <><li><span>1</span>{isEnglish ? "You describe the symptom and its severity." : "تكتب العرض وتحدد شدته."}</li><li><span>2</span>{isEnglish ? "Emergency signs bypass chat immediately." : "العلامات الطارئة تتجاوز المحادثة فوراً."}</li><li><span>3</span>{isEnglish ? "Other updates are saved privately for follow-up." : "أما غير الطارئة فتُحفظ محلياً للمتابعة."}</li></> : activeMode === "food" ? <><li><span>1</span>{isEnglish ? "Name the food or drink." : "سمِّ الطعام أو المشروب."}</li><li><span>2</span>{isEnglish ? "Add grams if you know the amount." : "أضف الجرامات إن عرفت الكمية."}</li><li><span>3</span>{isEnglish ? "See official data and health sources separately." : "شاهد البيانات الرسمية والمصادر الطبية كلٌ على حدة."}</li></> : <><li><span>1</span>{t("ask.step1", "فهم سؤالك وسياقك المسجل")}</li><li><span>2</span>{t("ask.step2", "USDA مع تحقق CoFID عند توفر تطابق")}</li><li><span>3</span>{t("ask.step3", "إرشادات تناسب حالتك")}</li><li><span>4</span>{t("ask.step4", "روابط السجلات والمراجع المباشرة")}</li></>}</ol>{activeMode !== "symptom" && <Link className="source-transparency-link" to="/sources">{t("ask.sources", "شاهد سياسة ومصادر البيانات")} <ChevronLeft /></Link>}</div><div className="safety-mini"><ShieldAlert /><p>{t("ask.safety", "لا تستخدم المحادثة في الطوارئ.")}</p><Link to="/emergency">{t("ask.emergency", "افتح وضع الطوارئ")}</Link></div></aside>
     </div>
   </AppShell>;
+}
+
+export function FoodChatPage() {
+  return <AskPage defaultMode="food" />;
 }
 
 export function MealPage() {
   const [file, setFile] = useState(null); const [preview, setPreview] = useState(""); const [ingredients, setIngredients] = useState([]); const [draft, setDraft] = useState(""); const [detecting, setDetecting] = useState(false); const [notice, setNotice] = useState(""); const navigate = useNavigate(); const { answer, loading, stage, error, ask } = useGroundedQuestion();
   useEffect(() => () => { if (preview) URL.revokeObjectURL(preview); }, [preview]);
   const choose = (selected) => { if (!selected) return; if (preview) URL.revokeObjectURL(preview); setFile(selected); setPreview(URL.createObjectURL(selected)); setIngredients([]); setNotice(""); };
-  const detect = async () => { if (!file) return; setDetecting(true); const body = new FormData(); body.append("file", file); try { const result = await api("/meals/detect", { method: "POST", body }); setIngredients(result.ingredients); setNotice(result.notice); } catch (err) { setNotice(err.message); } finally { setDetecting(false); } };
-  const addIngredient = () => { if (draft.trim()) { setIngredients([...ingredients, draft.trim()]); setDraft(""); } };
-  const analyze = () => ask({ question: "حلل هذه الوجبة في ضوء حالاتي الصحية المسجلة.", confirmed_ingredients: ingredients, mode: "meal" });
+  const detect = async () => { if (!file) return; setDetecting(true); const body = new FormData(); body.append("file", file); try { const result = await api("/meals/detect", { method: "POST", body }); setIngredients(result.ingredients.map((name) => ({ name, amount_g: 100 }))); setNotice(result.notice); } catch (err) { setNotice(err.message); } finally { setDetecting(false); } };
+  const addIngredient = () => { if (draft.trim()) { setIngredients([...ingredients, { name: draft.trim(), amount_g: 100 }]); setDraft(""); } };
+  const analyze = async () => { const result = await ask({ question: "حلل هذه الوجبة في ضوء حالاتي الصحية المسجلة.", confirmed_ingredients: ingredients.map((item) => item.name), food_quantities: ingredients, mode: "meal" }); if (result?.emergency) navigate("/emergency", { state: { triggered: true } }); };
   return <AppShell title="تحليل الوجبة" eyebrow="اكتشاف بصري ثم تأكيد بشري">
     <div className="meal-grid"><section className="card upload-card"><div className="section-title"><Camera /><div><h2>صورة الوجبة</h2><p>الصورة تستخدم لاكتشاف مكونات محتملة فقط</p></div></div><label className={`drop-zone ${preview ? "has-image" : ""}`}>{preview ? <img src={preview} alt="معاينة الوجبة" /> : <><ImagePlus /><strong>اختر صورة الوجبة</strong><span>JPG أو PNG</span></>}<input type="file" accept="image/*" onChange={(e) => choose(e.target.files[0])} /></label>{file && <button className="button wide" onClick={detect} disabled={detecting}>{detecting ? <><LoaderCircle className="spin" /> جارٍ اكتشاف المكونات...</> : <><Sparkles /> اكتشاف المكونات</>}</button>}</section>
-      <section className="card ingredients-card"><div className="section-title"><ClipboardCheck /><div><h2>المكونات المكتشفة</h2><p>عدّل القائمة قبل أي تحليل صحي</p></div></div>{notice && <div className="demo-notice"><BrainCircuit />{notice}</div>}<div className="ingredient-list">{ingredients.map((ingredient, index) => <div key={`${ingredient}-${index}`}><Utensils /><input value={ingredient} onChange={(e) => setIngredients(ingredients.map((value, i) => i === index ? e.target.value : value))} /><button onClick={() => setIngredients(ingredients.filter((_, i) => i !== index))} aria-label="حذف المكون"><X /></button></div>)}</div><div className="add-ingredient"><input value={draft} onChange={(e) => setDraft(e.target.value)} placeholder="أضف مكوناً" onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addIngredient(); } }} /><button onClick={addIngredient}><Plus /></button></div><button className="button wide" disabled={!ingredients.length || loading} onClick={analyze}><Check /> تأكيد المكونات وتحليلها</button></section></div>
+      <section className="card ingredients-card"><div className="section-title"><ClipboardCheck /><div><h2>المكونات والكميات</h2><p>عدّل الاسم وحدد الوزن بالجرام قبل التحليل</p></div></div>{notice && <div className="demo-notice"><BrainCircuit />{notice}</div>}<div className="ingredient-list">{ingredients.map((ingredient, index) => <div key={`${ingredient.name}-${index}`}><Utensils /><input value={ingredient.name} aria-label={`اسم المكون ${index + 1}`} onChange={(e) => setIngredients(ingredients.map((value, i) => i === index ? { ...value, name: e.target.value } : value))} /><label className="ingredient-amount"><input type="number" min="1" max="5000" step="1" value={ingredient.amount_g} aria-label={`كمية ${ingredient.name} بالجرام`} onChange={(e) => setIngredients(ingredients.map((value, i) => i === index ? { ...value, amount_g: Number(e.target.value) } : value))} /><span>جم</span></label><button onClick={() => setIngredients(ingredients.filter((_, i) => i !== index))} aria-label="حذف المكون"><X /></button></div>)}</div><div className="add-ingredient"><input value={draft} onChange={(e) => setDraft(e.target.value)} placeholder="أضف مكوناً" onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addIngredient(); } }} /><button onClick={addIngredient}><Plus /></button></div><button className="button wide" disabled={!ingredients.length || ingredients.some((item) => !item.name.trim() || item.amount_g < 1 || item.amount_g > 5000) || loading} onClick={analyze}><Check /> تأكيد الكميات وتحليلها</button></section></div>
     {loading && <StagedLoader stage={stage} />}{error && <div className="inline-error">{error}</div>}<AnswerView answer={answer} onTechnical={(traceId) => { sessionStorage.setItem("afiyati_trace_id", traceId); navigate("/technical-demo"); }} />
     <div className="safety-notice"><ShieldCheck /><div><strong>مرحلتان منفصلتان</strong><p>اكتشاف الطعام لا يقدم توصية طبية. التحليل يبدأ فقط بعد تأكيدك للمكونات ثم يسترجع الدليل.</p></div></div>
   </AppShell>;
@@ -103,7 +179,7 @@ const habits = [
 
 export function HabitsPage() {
   const [selected, setSelected] = useState(habits[0]); const [context, setContext] = useState(""); const navigate = useNavigate(); const { answer, loading, stage, error, ask } = useGroundedQuestion();
-  const submit = (event) => { event.preventDefault(); ask({ question: `${selected[2]} السياق: ${context || "غير محدد"}`, mode: "habit" }); };
+  const submit = async (event) => { event.preventDefault(); const result = await ask({ question: `${selected[2]} السياق: ${context || "غير محدد"}`, mode: "habit" }); if (result?.emergency) navigate("/emergency", { state: { triggered: true } }); };
   return <AppShell title="تحليل العادات" eyebrow="سياقك اليومي مع الدليل"><div className="habit-layout"><section className="habit-picker">{habits.map((habit) => { const Icon = habit[1]; return <button key={habit[0]} onClick={() => setSelected(habit)} className={selected[0] === habit[0] ? "active" : ""}><Icon /><span>{habit[0]}</span><ChevronLeft /></button>; })}</section><form className="card habit-form" onSubmit={submit}><span className="large-icon">{(() => { const Icon = selected[1]; return <Icon />; })()}</span><h2>{selected[0]}</h2><p>أضف الكمية أو التكرار أو المدة لتحسين استرجاع الأدلة، دون اعتبارها تشخيصاً.</p><label>تفاصيل العادة<textarea rows="5" value={context} onChange={(e) => setContext(e.target.value)} placeholder="مثال: أشرب كوبين قهوة يومياً، واحد صباحاً والآخر بعد الظهر" /></label><button className="button wide" disabled={loading}><Search /> ابحث في الإرشادات</button></form></div>{loading && <StagedLoader stage={stage} />}{error && <div className="inline-error">{error}</div>}<AnswerView answer={answer} onTechnical={(traceId) => { sessionStorage.setItem("afiyati_trace_id", traceId); navigate("/technical-demo"); }} /></AppShell>;
 }
 

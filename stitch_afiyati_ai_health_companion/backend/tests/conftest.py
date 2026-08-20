@@ -16,6 +16,8 @@ def app_settings(tmp_path: Path) -> Settings:
         database_path=tmp_path / "data" / "test.db",
         qdrant_path=tmp_path / "data" / "qdrant",
         secret_key="test-secret-key",
+        food_data_enabled=False,
+        cofid_enabled=False,
     )
 
 
@@ -34,4 +36,3 @@ def auth_headers(client: TestClient) -> dict[str, str]:
     )
     assert response.status_code == 201
     return {"Authorization": f"Bearer {response.json()['token']}"}
-

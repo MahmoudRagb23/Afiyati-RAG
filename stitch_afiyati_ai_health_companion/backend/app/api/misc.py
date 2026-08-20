@@ -6,6 +6,7 @@ from pathlib import Path
 from fastapi import APIRouter, Depends, File, HTTPException, Request, UploadFile
 
 from app.api.deps import current_user, optional_user
+from app.core.conditions import is_supported_condition
 from app.core.safety import classify_safety, emergency_response
 from app.schemas.api import SymptomRequest
 
@@ -58,6 +59,27 @@ async def symptoms(
     return answer
 
 
+@router.get("/symptoms/history")
+def symptom_history(request: Request, user: dict = Depends(current_user)) -> list[dict]:
+    with request.app.state.db.session() as connection:
+        rows = connection.execute(
+            """SELECT id,symptoms,started_at,severity,classification,created_at
+               FROM symptoms WHERE user_id=? ORDER BY id DESC LIMIT 12""",
+            (user["id"],),
+        ).fetchall()
+    return [
+        {
+            "id": row["id"],
+            "symptoms": row["symptoms"],
+            "started_at": row["started_at"],
+            "severity": row["severity"],
+            "classification": row["classification"],
+            "created_at": row["created_at"],
+        }
+        for row in rows
+    ]
+
+
 @router.get("/rag/status")
 def rag_status(request: Request) -> dict:
     return request.app.state.rag.status()
@@ -94,6 +116,8 @@ def sources(request: Request, user: dict = Depends(current_user)) -> list[dict]:
     unique: dict[str, dict] = {}
     for chunk in request.app.state.rag.bm25.chunks:
         meta = chunk["metadata"]
+        if not is_supported_condition(meta.get("condition")):
+            continue
         key = meta.get("guideline_id") or meta.get("source_filename")
         unique[key] = {
             "guideline_id": meta.get("guideline_id"),

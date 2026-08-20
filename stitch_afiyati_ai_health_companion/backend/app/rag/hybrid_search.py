@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import time
 
+from app.core.conditions import SUPPORTED_CONDITIONS, supported_conditions
 from app.rag.bm25 import BM25Index, lexical_tokens
 from app.rag.vector_store import LocalVectorStore
 from app.services.ollama_service import OllamaError, OllamaService
@@ -25,6 +26,7 @@ class HybridRetriever:
         fused: dict[str, dict] = {}
         dense_latency = 0.0
         dense_error = None
+        search_conditions = supported_conditions(conditions) or list(SUPPORTED_CONDITIONS)
         dense_results: list[list[dict]] = [[] for _ in queries]
         if strategy in {"dense", "hybrid"} and self.vectors.count():
             try:
@@ -32,13 +34,13 @@ class HybridRetriever:
                     queries, keep_alive=embedding_keep_alive
                 )
                 dense_results = [
-                    self.vectors.search(vector, candidate_k, conditions) for vector in vectors
+                    self.vectors.search(vector, candidate_k, search_conditions) for vector in vectors
                 ]
             except (OllamaError, RuntimeError) as exc:
                 dense_error = str(exc)
         for query_index, query in enumerate(queries):
             dense = dense_results[query_index]
-            lexical = self.bm25.search(query, candidate_k, conditions) if strategy in {"bm25", "hybrid"} else []
+            lexical = self.bm25.search(query, candidate_k, search_conditions) if strategy in {"bm25", "hybrid"} else []
             for method, results in (("dense", dense), ("bm25", lexical)):
                 for rank, result in enumerate(results, start=1):
                     chunk_id = result["metadata"]["chunk_id"]

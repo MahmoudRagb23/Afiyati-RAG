@@ -17,8 +17,8 @@ they must not be described as an official clinical benchmark.
 
 - 28 Arabic, English, and mixed-language questions.
 - 17 questions with page-level provisional relevance judgments.
-- Four official PDFs: NICE NG136, NICE NG28, KDIGO CKD 2024, and GINA 2026.
-- 2,059 page-bounded chunks in both BM25 and Qdrant.
+- Two official PDFs: NICE NG136 and NICE NG28.
+- Retrieval and generation metrics must be rerun after rebuilding the two-document index.
 - SHA-256, manifest metadata, PDF parsing, version, and source validation passed.
 - Embedding model: `qwen3-embedding:0.6b` (1,024 dimensions).
 - Retrieval: dense + BM25 reciprocal-rank fusion + lexical reranking.
@@ -116,4 +116,3 @@ scripts\test_all.bat
 The full JSON report, including confidence intervals, Top-K comparison, every
 Top-5 ranking, and per-answer grounding audit, is stored at
 `evaluation/reports/latest.json` and served by `/api/rag/benchmark`.
-

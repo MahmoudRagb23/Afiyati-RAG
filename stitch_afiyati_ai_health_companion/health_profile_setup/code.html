@@ -120,10 +120,10 @@
 <!-- Header & Progress -->
 <div class="mb-10 text-center">
 <h1 class="font-headline-lg text-headline-lg text-primary mb-2">إعداد الملف الصحي</h1>
-<p class="font-body-md text-body-md text-on-surface-variant">الخطوة 2 من 4: الحالات المزمنة</p>
+<p class="font-body-md text-body-md text-on-surface-variant">الخطوة 2 من 3: الحالات المزمنة</p>
 <!-- Progress Bar -->
 <div class="w-full h-2 bg-surface-container mt-6 rounded-full overflow-hidden flex flex-row-reverse">
-<div class="h-full bg-primary-container rounded-full" style="width: 50%;"></div>
+<div class="h-full bg-primary-container rounded-full" style="width: 66.67%;"></div>
 </div>
 </div>
 <!-- Content Area: Step 2 - Chronic Conditions -->
@@ -143,25 +143,29 @@
 <span class="material-symbols-outlined text-outline text-4xl" data-icon="bloodtype">bloodtype</span>
 <span class="font-label-md text-label-md text-on-surface">السكري</span>
 </div>
-<!-- Selected Card -->
-<div class="border-2 border-primary-container bg-primary-container/10 rounded-xl p-4 cursor-pointer hover:bg-primary-container/20 transition-colors flex flex-col items-center justify-center text-center gap-2">
-<span class="material-symbols-outlined text-primary-container text-4xl" data-icon="ecg" style="font-variation-settings: 'FILL' 1;">ecg</span>
-<span class="font-label-md text-label-md text-primary-container">أمراض القلب</span>
+<!-- Disabled Card -->
+<div aria-disabled="true" class="border border-dashed border-outline-variant bg-surface-container rounded-xl p-4 cursor-not-allowed opacity-70 flex flex-col items-center justify-center text-center gap-1">
+<span class="material-symbols-outlined text-outline text-4xl" data-icon="ecg">ecg</span>
+<span class="font-label-md text-label-md text-on-surface">أمراض القلب</span>
+<span class="font-label-sm text-label-sm text-tertiary">Soon</span>
 </div>
-<!-- Unselected Card -->
-<div class="border border-outline-variant bg-surface-container-lowest rounded-xl p-4 cursor-pointer hover:border-primary-container transition-colors flex flex-col items-center justify-center text-center gap-2">
+<!-- Disabled Card -->
+<div aria-disabled="true" class="border border-dashed border-outline-variant bg-surface-container rounded-xl p-4 cursor-not-allowed opacity-70 flex flex-col items-center justify-center text-center gap-1">
 <span class="material-symbols-outlined text-outline text-4xl" data-icon="air">air</span>
 <span class="font-label-md text-label-md text-on-surface">الربو</span>
+<span class="font-label-sm text-label-sm text-tertiary">Soon</span>
 </div>
-<!-- Unselected Card -->
-<div class="border border-outline-variant bg-surface-container-lowest rounded-xl p-4 cursor-pointer hover:border-primary-container transition-colors flex flex-col items-center justify-center text-center gap-2">
+<!-- Disabled Card -->
+<div aria-disabled="true" class="border border-dashed border-outline-variant bg-surface-container rounded-xl p-4 cursor-not-allowed opacity-70 flex flex-col items-center justify-center text-center gap-1">
 <span class="material-symbols-outlined text-outline text-4xl" data-icon="kidney">file_copy</span>
 <span class="font-label-md text-label-md text-on-surface">أمراض الكلى</span>
+<span class="font-label-sm text-label-sm text-tertiary">Soon</span>
 </div>
-<!-- Unselected Card -->
-<div class="border border-outline-variant bg-surface-container-lowest rounded-xl p-4 cursor-pointer hover:border-primary-container transition-colors flex flex-col items-center justify-center text-center gap-2">
+<!-- Disabled Card -->
+<div aria-disabled="true" class="border border-dashed border-outline-variant bg-surface-container rounded-xl p-4 cursor-not-allowed opacity-70 flex flex-col items-center justify-center text-center gap-1">
 <span class="material-symbols-outlined text-outline text-4xl" data-icon="add_circle">add_circle</span>
 <span class="font-label-md text-label-md text-on-surface">أخرى</span>
+<span class="font-label-sm text-label-sm text-tertiary">Soon</span>
 </div>
 </div>
 </div>
