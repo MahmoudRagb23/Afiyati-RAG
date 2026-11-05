@@ -8,6 +8,21 @@ from pathlib import Path
 ROOT_DIR = Path(__file__).resolve().parents[3]
 
 
+def _load_dotenv(path: Path) -> None:
+    """Load local development settings without overriding real environment variables."""
+    if not path.is_file():
+        return
+    for raw_line in path.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        key = key.strip()
+        value = value.strip().strip('"').strip("'")
+        if key:
+            os.environ.setdefault(key, value)
+
+
 def _path_from_env(name: str, default: str) -> Path:
     value = Path(os.getenv(name, default))
     return value if value.is_absolute() else (ROOT_DIR / value).resolve()
@@ -51,6 +66,7 @@ class Settings:
 
     @classmethod
     def from_env(cls) -> "Settings":
+        _load_dotenv(ROOT_DIR / ".env")
         database_url = os.getenv("DATABASE_URL", "sqlite:///./data/afiyati.db")
         database_value = database_url.removeprefix("sqlite:///")
         return cls(
